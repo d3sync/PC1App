@@ -90,5 +90,20 @@ namespace PC1
                 listView1.SelectedItems.Clear();
             }
             }
+
+        private void toolStripMenuItem6_Click(object sender, EventArgs e)
+        {
+            //save to file
+        }
+
+        private void toolStripMenuItem7_Click(object sender, EventArgs e)
+        {
+            //open file
+        }
+
+        private void toolStripMenuItem8_Click(object sender, EventArgs e)
+        {
+            //save and send
+        }
     }
 }
