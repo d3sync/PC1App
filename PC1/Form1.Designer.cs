@@ -33,12 +33,8 @@ namespace PC1
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.procDate = new System.Windows.Forms.DateTimePicker();
             this.btnClear = new System.Windows.Forms.Button();
-            this.txtDriver = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.deliveredDate = new System.Windows.Forms.DateTimePicker();
-            this.cmbPaymentMethod = new System.Windows.Forms.ComboBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.cmbType = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.txtPrice = new System.Windows.Forms.TextBox();
@@ -61,6 +57,8 @@ namespace PC1
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.btnSaveExcel = new System.Windows.Forms.Button();
             this.listView1 = new System.Windows.Forms.ListView();
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
@@ -68,13 +66,12 @@ namespace PC1
             this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader5 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader6 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader7 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader8 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader9 = new System.Windows.Forms.ColumnHeader();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -88,12 +85,8 @@ namespace PC1
             // 
             this.groupBox1.Controls.Add(this.procDate);
             this.groupBox1.Controls.Add(this.btnClear);
-            this.groupBox1.Controls.Add(this.txtDriver);
-            this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.deliveredDate);
-            this.groupBox1.Controls.Add(this.cmbPaymentMethod);
-            this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.cmbType);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.txtPrice);
@@ -108,7 +101,7 @@ namespace PC1
             this.groupBox1.Controls.Add(this.submitBtn);
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(364, 332);
+            this.groupBox1.Size = new System.Drawing.Size(364, 262);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Καταχώρηση";
@@ -125,7 +118,7 @@ namespace PC1
             // btnClear
             // 
             this.btnClear.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnClear.Location = new System.Drawing.Point(9, 297);
+            this.btnClear.Location = new System.Drawing.Point(9, 237);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(102, 23);
             this.btnClear.TabIndex = 19;
@@ -133,65 +126,23 @@ namespace PC1
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
-            // txtDriver
-            // 
-            this.txtDriver.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.txtDriver.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.HistoryList;
-            this.txtDriver.Location = new System.Drawing.Point(156, 254);
-            this.txtDriver.Name = "txtDriver";
-            this.txtDriver.Size = new System.Drawing.Size(200, 23);
-            this.txtDriver.TabIndex = 9;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(9, 258);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(116, 15);
-            this.label9.TabIndex = 130;
-            this.label9.Text = "Οδηγός Παράδοσης";
-            // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(9, 231);
+            this.label8.Location = new System.Drawing.Point(9, 199);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(111, 15);
+            this.label8.Size = new System.Drawing.Size(125, 15);
             this.label8.TabIndex = 129;
-            this.label8.Text = "Ημ/νια Παράδοσης";
+            this.label8.Text = "Ημ/νια Καταχώρησης";
             // 
             // deliveredDate
             // 
             this.deliveredDate.CustomFormat = "dd/MM/yyyy";
             this.deliveredDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.deliveredDate.Location = new System.Drawing.Point(156, 225);
+            this.deliveredDate.Location = new System.Drawing.Point(156, 196);
             this.deliveredDate.Name = "deliveredDate";
-            this.deliveredDate.Size = new System.Drawing.Size(200, 23);
+            this.deliveredDate.Size = new System.Drawing.Size(201, 23);
             this.deliveredDate.TabIndex = 8;
-            // 
-            // cmbPaymentMethod
-            // 
-            this.cmbPaymentMethod.FormattingEnabled = true;
-            this.cmbPaymentMethod.Items.AddRange(new object[] {
-            "ΑΝΤΙΚΑΤΑΒΟΛΗ",
-            "ΜΕΤΡΗΤΑ",
-            "ΠΙΣΤΩΤΙΚΗ ΚΑΡΤΑ",
-            "ΚΑΤΑΘΕΣΗ",
-            "ΕΠΙ ΠΙΣΤΩΣΗ"});
-            this.cmbPaymentMethod.Location = new System.Drawing.Point(156, 196);
-            this.cmbPaymentMethod.Name = "cmbPaymentMethod";
-            this.cmbPaymentMethod.Size = new System.Drawing.Size(200, 23);
-            this.cmbPaymentMethod.TabIndex = 7;
-            this.cmbPaymentMethod.Text = "ΑΝΤΙΚΑΤΑΒΟΛΗ";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(9, 199);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(111, 15);
-            this.label7.TabIndex = 128;
-            this.label7.Text = "Τρόπος Πληρωμής";
             // 
             // cmbType
             // 
@@ -226,15 +177,16 @@ namespace PC1
             this.txtPrice.Name = "txtPrice";
             this.txtPrice.Size = new System.Drawing.Size(200, 23);
             this.txtPrice.TabIndex = 5;
+            this.txtPrice.TextChanged += new System.EventHandler(this.txtPrice_TextChanged);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(9, 141);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(37, 15);
+            this.label5.Size = new System.Drawing.Size(129, 15);
             this.label5.TabIndex = 9126;
-            this.label5.Text = "Ποσό";
+            this.label5.Text = "Ποσό ή Τρ. Πληρωμής";
             // 
             // txtName
             // 
@@ -267,6 +219,7 @@ namespace PC1
             this.txtGeneralNumeration.Name = "txtGeneralNumeration";
             this.txtGeneralNumeration.Size = new System.Drawing.Size(200, 23);
             this.txtGeneralNumeration.TabIndex = 2;
+            this.txtGeneralNumeration.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtGeneralNumeration_KeyPress);
             // 
             // label2
             // 
@@ -283,6 +236,7 @@ namespace PC1
             this.txtParcelNo.Name = "txtParcelNo";
             this.txtParcelNo.Size = new System.Drawing.Size(200, 23);
             this.txtParcelNo.TabIndex = 1;
+            this.txtParcelNo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtParcelNo_KeyPress);
             // 
             // label1
             // 
@@ -296,7 +250,7 @@ namespace PC1
             // submitBtn
             // 
             this.submitBtn.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.submitBtn.Location = new System.Drawing.Point(156, 283);
+            this.submitBtn.Location = new System.Drawing.Point(156, 223);
             this.submitBtn.Name = "submitBtn";
             this.submitBtn.Size = new System.Drawing.Size(200, 37);
             this.submitBtn.TabIndex = 10;
@@ -330,6 +284,7 @@ namespace PC1
             // 
             // toolStripMenuItem7
             // 
+            this.toolStripMenuItem7.Enabled = false;
             this.toolStripMenuItem7.Name = "toolStripMenuItem7";
             this.toolStripMenuItem7.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.toolStripMenuItem7.Size = new System.Drawing.Size(293, 22);
@@ -346,6 +301,7 @@ namespace PC1
             // 
             // toolStripMenuItem8
             // 
+            this.toolStripMenuItem8.Enabled = false;
             this.toolStripMenuItem8.Name = "toolStripMenuItem8";
             this.toolStripMenuItem8.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
@@ -359,9 +315,11 @@ namespace PC1
             this.toolStripMenuItem9.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
             this.toolStripMenuItem9.Size = new System.Drawing.Size(293, 22);
             this.toolStripMenuItem9.Text = "Επιλογές";
+            this.toolStripMenuItem9.Click += new System.EventHandler(this.toolStripMenuItem9_Click);
             // 
             // toolStripMenuItem10
             // 
+            this.toolStripMenuItem10.Enabled = false;
             this.toolStripMenuItem10.Name = "toolStripMenuItem10";
             this.toolStripMenuItem10.Size = new System.Drawing.Size(293, 22);
             this.toolStripMenuItem10.Text = "Κλείσιμο";
@@ -386,6 +344,8 @@ namespace PC1
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.richTextBox1);
+            this.splitContainer1.Panel1.Controls.Add(this.btnSaveExcel);
             this.splitContainer1.Panel1.Controls.Add(this.groupBox1);
             this.splitContainer1.Panel1.Cursor = System.Windows.Forms.Cursors.Default;
             // 
@@ -397,6 +357,26 @@ namespace PC1
             this.splitContainer1.SplitterDistance = 374;
             this.splitContainer1.TabIndex = 4;
             // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(3, 315);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(364, 130);
+            this.richTextBox1.TabIndex = 1;
+            this.richTextBox1.Text = "";
+            this.richTextBox1.Visible = false;
+            // 
+            // btnSaveExcel
+            // 
+            this.btnSaveExcel.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnSaveExcel.Location = new System.Drawing.Point(3, 269);
+            this.btnSaveExcel.Name = "btnSaveExcel";
+            this.btnSaveExcel.Size = new System.Drawing.Size(356, 40);
+            this.btnSaveExcel.TabIndex = 3;
+            this.btnSaveExcel.Text = "Αποθήκευση σε Excel";
+            this.btnSaveExcel.UseVisualStyleBackColor = true;
+            this.btnSaveExcel.Click += new System.EventHandler(this.button1_Click);
+            // 
             // listView1
             // 
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -406,9 +386,7 @@ namespace PC1
             this.columnHeader4,
             this.columnHeader5,
             this.columnHeader6,
-            this.columnHeader7,
-            this.columnHeader8,
-            this.columnHeader9});
+            this.columnHeader8});
             this.listView1.ContextMenuStrip = this.contextMenuStrip1;
             this.listView1.Cursor = System.Windows.Forms.Cursors.Default;
             this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -434,7 +412,7 @@ namespace PC1
             // 
             // columnHeader3
             // 
-            this.columnHeader3.Text = "Ημ. Τιμ";
+            this.columnHeader3.Text = "Ημ. Τιμολόγησης";
             this.columnHeader3.Width = 70;
             // 
             // columnHeader4
@@ -450,20 +428,10 @@ namespace PC1
             // 
             this.columnHeader6.Text = "Τύπος Παραστατικού";
             // 
-            // columnHeader7
-            // 
-            this.columnHeader7.Text = "Τρόπος Πληρωμής";
-            this.columnHeader7.Width = 90;
-            // 
             // columnHeader8
             // 
-            this.columnHeader8.Text = "Ημ. Παράδοσης";
+            this.columnHeader8.Text = "Ημ. Καταχώρησης";
             this.columnHeader8.Width = 70;
-            // 
-            // columnHeader9
-            // 
-            this.columnHeader9.Text = "Οδηγός Παράδοσης";
-            this.columnHeader9.Width = 100;
             // 
             // contextMenuStrip1
             // 
@@ -487,10 +455,16 @@ namespace PC1
             this.toolStripMenuItem5.Text = "Delete Record";
             this.toolStripMenuItem5.Click += new System.EventHandler(this.toolStripMenuItem5_Click);
             // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
             // Form1
             // 
+            this.AcceptButton = this.submitBtn;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnClear;
             this.ClientSize = new System.Drawing.Size(1184, 501);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
@@ -519,12 +493,8 @@ namespace PC1
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DateTimePicker procDate;
         private System.Windows.Forms.Button btnClear;
-        private System.Windows.Forms.TextBox txtDriver;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.DateTimePicker deliveredDate;
-        private System.Windows.Forms.ComboBox cmbPaymentMethod;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox cmbType;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtPrice;
@@ -549,9 +519,7 @@ namespace PC1
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ColumnHeader columnHeader6;
-        private System.Windows.Forms.ColumnHeader columnHeader7;
         private System.Windows.Forms.ColumnHeader columnHeader8;
-        private System.Windows.Forms.ColumnHeader columnHeader9;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
@@ -561,6 +529,9 @@ namespace PC1
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem8;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem9;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem10;
+        private System.Windows.Forms.Button btnSaveExcel;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }
 
