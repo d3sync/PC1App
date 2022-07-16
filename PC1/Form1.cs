@@ -13,7 +13,8 @@ namespace PC1
 {
     public partial class Form1 : Form
     {
-        bool editOn = false;
+        bool editOn = false; 
+        string fileStr;
 
         public Form1()
         {
@@ -23,7 +24,7 @@ namespace PC1
                 Properties.Settings.Default.dailyFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
                 Properties.Settings.Default.Save();
             }
-            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;            
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -133,7 +134,8 @@ namespace PC1
             var path = Properties.Settings.Default.dailyFolder;
                 //MessageBox.Show(path);
             var store = Properties.Settings.Default.storeName;
-            var file = new FileInfo(@$"{path}\PC1 ΗΜΕΡΗΣΙΟ {store} {DateTime.Now.ToString("MMMM yyyy").ToUpper()}.xlsx");
+            fileStr = @$"{path}\PC1 ΗΜΕΡΗΣΙΟ {store} {DateTime.Now.ToString("MMMM yyyy").ToUpper()}.xlsx";
+            var file = new FileInfo(fileStr);
             using (var package = new ExcelPackage(file))
             {
                 try
@@ -154,13 +156,13 @@ namespace PC1
                 ws.Cells["E1"].Value = DateTime.Now.ToString("dd/MM/yyyy");
                 var range = ws.Cells["A1"].Value = "PC1 Ημερήσιο";
                 ws.Cells["A1"].AutoFitColumns();
-                ws.Cells["A2"].Value = "Αριθμός Παραστατικού";
-                ws.Cells["B2"].Value = "Γενική Αρίθμιση";
+                ws.Cells["A2"].Value = "Αρ. Παραστατικού";
+                ws.Cells["B2"].Value = "Γεν. Αρίθμιση";
                 ws.Cells["C2"].Value = "Ημ τιμολόγισης";
                 ws.Cells["D2"].Value = "Επωνυμία";
                 ws.Cells["E2"].Value = "Ποσό";
                 ws.Cells["F2"].Value = "Τύπος Παραστατικού";
-                ws.Cells["G2"].Value = "Ημερομηνία Καταχώρησης";
+                ws.Cells["G2"].Value = "Ημ/νία Καταχώρησης";
                 ws.Cells["A2:G2"].Style.Font.Bold = true;
                 ws.Cells["A2:G2"].Style.Fill.PatternType = ExcelFillStyle.Solid;
                 ws.Cells["A2:G2"].Style.Font.Color.SetColor(Color.LightGray);
@@ -204,7 +206,7 @@ namespace PC1
                 {
                     package.Save();
                     //FileInfo excel = new FileInfo($"{file}");
-                    //Process.Start(Properties.Settings.Default.dailyFolder);
+                    
                 }
                 catch (Exception ex)
                 {
@@ -218,18 +220,6 @@ namespace PC1
         {
             PC1Settings settings = new PC1Settings();
             settings.Show();
-        }
-
-        private void txtPrice_TextChanged(object sender, EventArgs e)
-        {
-            string _value = txtParcelNo.Text;
-            if (txtParcelNo.Text.Contains("."))
-            {
-                _value = _value.Replace(".", ",");
-                txtParcelNo.Text = _value;
-                txtParcelNo.SelectionStart = txtParcelNo.Text.Length;
-                txtParcelNo.SelectionLength = 0;
-            }
         }
 
         private void txtParcelNo_KeyPress(object sender, KeyPressEventArgs e)
@@ -254,6 +244,34 @@ namespace PC1
             }
 
             // only allow one decimal point
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void openExcel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Process.Start("explorer.exe", @fileStr);
+            }
+            catch
+            {
+                MessageBox.Show("Possible 404 (Not Found) situation!");
+            }
+        }
+
+        private void txtPrice_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            TextBox current = (TextBox)sender;
+            if (e.KeyChar == ',') 
+            {
+                e.Handled = true;
+                current.Text += ".";
+                current.SelectionStart = current.Text.Length;
+                current.SelectionLength = 0;
+            }
             if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
             {
                 e.Handled = true;

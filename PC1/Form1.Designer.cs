@@ -30,6 +30,7 @@ namespace PC1
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.procDate = new System.Windows.Forms.DateTimePicker();
             this.btnClear = new System.Windows.Forms.Button();
@@ -57,6 +58,7 @@ namespace PC1
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.openExcel = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.btnSaveExcel = new System.Windows.Forms.Button();
             this.listView1 = new System.Windows.Forms.ListView();
@@ -177,7 +179,7 @@ namespace PC1
             this.txtPrice.Name = "txtPrice";
             this.txtPrice.Size = new System.Drawing.Size(200, 23);
             this.txtPrice.TabIndex = 5;
-            this.txtPrice.TextChanged += new System.EventHandler(this.txtPrice_TextChanged);
+            this.txtPrice.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrice_KeyPress);
             // 
             // label5
             // 
@@ -344,6 +346,7 @@ namespace PC1
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.openExcel);
             this.splitContainer1.Panel1.Controls.Add(this.richTextBox1);
             this.splitContainer1.Panel1.Controls.Add(this.btnSaveExcel);
             this.splitContainer1.Panel1.Controls.Add(this.groupBox1);
@@ -357,11 +360,22 @@ namespace PC1
             this.splitContainer1.SplitterDistance = 374;
             this.splitContainer1.TabIndex = 4;
             // 
+            // openExcel
+            // 
+            this.openExcel.Font = new System.Drawing.Font("Segoe UI Emoji", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.openExcel.Location = new System.Drawing.Point(4, 309);
+            this.openExcel.Name = "openExcel";
+            this.openExcel.Size = new System.Drawing.Size(356, 40);
+            this.openExcel.TabIndex = 4;
+            this.openExcel.Text = "Άνοιγμα Excel";
+            this.openExcel.UseVisualStyleBackColor = true;
+            this.openExcel.Click += new System.EventHandler(this.openExcel_Click);
+            // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(3, 315);
+            this.richTextBox1.Location = new System.Drawing.Point(3, 355);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(364, 130);
+            this.richTextBox1.Size = new System.Drawing.Size(364, 90);
             this.richTextBox1.TabIndex = 1;
             this.richTextBox1.Text = "";
             this.richTextBox1.Visible = false;
@@ -468,6 +482,7 @@ namespace PC1
             this.ClientSize = new System.Drawing.Size(1184, 501);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.MaximumSize = new System.Drawing.Size(1200, 540);
             this.MinimumSize = new System.Drawing.Size(1200, 540);
@@ -532,6 +547,7 @@ namespace PC1
         private System.Windows.Forms.Button btnSaveExcel;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.Button openExcel;
     }
 }
 
