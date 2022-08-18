@@ -70,7 +70,7 @@ namespace PC1
                     listView1.SelectedItems[0].SubItems[1].Text = txtGeneralNumeration.Text;
                     listView1.SelectedItems[0].SubItems[2].Text = procDate.Value.ToString("dd/MM/yy");
                     listView1.SelectedItems[0].SubItems[3].Text = txtName.Text;
-                    listView1.SelectedItems[0].SubItems[4].Text = txtPrice.Text;
+                    listView1.SelectedItems[0].SubItems[4].Text = txtPrice.Text.Replace(",",".");
                     listView1.SelectedItems[0].SubItems[5].Text = cmbType.Text;
                     listView1.SelectedItems[0].SubItems[6].Text = deliveredDate.Value.ToString("dd/MM/yy");
                     editOn = false;
