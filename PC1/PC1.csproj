@@ -9,6 +9,8 @@
     <Authors>d3sync</Authors>
     <Product>PC1 excel creator</Product>
     <Description>Non-commercial software - creation of excel file for delivered parcels</Description>
+    <SignAssembly>false</SignAssembly>
+    <DelaySign>false</DelaySign>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

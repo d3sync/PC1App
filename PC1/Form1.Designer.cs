@@ -74,6 +74,7 @@ namespace PC1
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.toolStripMenuItem11 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -328,6 +329,8 @@ namespace PC1
             // 
             // toolStripMenuItem2
             // 
+            this.toolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem11});
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
             this.toolStripMenuItem2.Size = new System.Drawing.Size(75, 20);
             this.toolStripMenuItem2.Text = "Διαχείριση";
@@ -473,6 +476,13 @@ namespace PC1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // toolStripMenuItem11
+            // 
+            this.toolStripMenuItem11.Name = "toolStripMenuItem11";
+            this.toolStripMenuItem11.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem11.Text = "Database Viewer";
+            this.toolStripMenuItem11.Click += new System.EventHandler(this.toolStripMenuItem11_Click);
+            // 
             // Form1
             // 
             this.AcceptButton = this.submitBtn;
@@ -548,6 +558,7 @@ namespace PC1
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Button openExcel;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem11;
     }
 }
 

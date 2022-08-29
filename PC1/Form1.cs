@@ -15,6 +15,7 @@ namespace PC1
     {
         bool editOn = false; 
         string fileStr;
+        private DatabaseClass db = new();
 
         public Form1()
         {
@@ -24,7 +25,14 @@ namespace PC1
                 Properties.Settings.Default.dailyFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
                 Properties.Settings.Default.Save();
             }
-            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;            
+            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+            string dbFilePath = Properties.Settings.Default.dailyFolder;
+            if (!File.Exists(@$"{dbFilePath}\PC1db.sqlite"))
+            {
+                db.initializeDB(@$"{dbFilePath}\PC1db.sqlite");
+            }
+            db.connect();
+            //db.AddDParcel("'23231323', '4654654654', '21/08/22', 'Alex', '23.20', 'ΑΛΠ-ΔΑ', '21/08/22'");
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -176,7 +184,7 @@ namespace PC1
                     var ii = 0;                    
                     foreach (ListViewItem.ListViewSubItem eitem in vitem.SubItems)
                     {
-                        line += eitem.Text + "  ";
+                        line += $"'{eitem.Text}',";
                         column = Convert.ToChar('A' + ii);
                         if (eitem.Text.Contains("."))
                         {
@@ -191,6 +199,16 @@ namespace PC1
                         ii++;
                     }                    
                     i++;
+                    line = line.TrimEnd(',');
+                    try
+                    {
+                        db.AddDParcel(line);
+                    }
+                    catch
+                    {
+                        //todo
+                        MessageBox.Show("Something went bad while trying to to insert into the db");
+                    }
                     richTextBox1.Text += line + "\r\n";
                 }
                 ws.Cells[$"A2:{column}{i}"].AutoFitColumns();
@@ -276,6 +294,12 @@ namespace PC1
             {
                 e.Handled = true;
             }
+        }
+
+        private void toolStripMenuItem11_Click(object sender, EventArgs e)
+        {
+            DataViewer dvForm = new DataViewer();
+            dvForm.Show();
         }
     }
 }
