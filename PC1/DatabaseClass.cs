@@ -131,5 +131,36 @@ namespace PC1
             }
             return result;
         }
+        public List<DeliveredModel> GetDataByDate2(string date)
+        {
+            string cs = @$"URI=file:{Properties.Settings.Default.dailyFolder}\PC1db.sqlite";
+
+            using var con = new SQLiteConnection(cs);
+            con.Open();
+            string stm = $"SELECT * FROM Delivered WHERE regDate='{date}'";
+            List<DeliveredModel> result = new List<DeliveredModel>();
+
+            using var cmd = new SQLiteCommand(stm, con);
+
+            using SQLiteDataReader read = cmd.ExecuteReader();
+            {
+                while (read.Read())
+                {
+                    result.Add(new DeliveredModel()
+                    {
+                        id = read.GetInt32(0),
+                        parcelno = read.GetString(1),
+                        general_numeration = read.GetString(2),
+                        procDate = read.GetString(3),
+                        name = read.GetString(4),
+                        price = read.GetString(5),
+                        dc_type = read.GetString(6),
+                        regDate = read.GetString(7)
+                    });
+                    Console.WriteLine(read.GetInt32(0));
+                }
+            }
+            return result;
+        }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -22,10 +23,19 @@ namespace PC1
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
+            listView1.Items.Clear();
             try
             {
-                Console.WriteLine($"Attempting to get data for {datePicker.Value.ToString("dd/MM/yyyy")}");
-                var rr = db.GetDataByDate(datePicker.Value.ToString("dd/MM/yyyy"));
+                Console.WriteLine($"Attempting to get data for {datePicker.Value.ToString("dd/MM/yy")}");
+                var rr = db.GetDataByDate2(datePicker.Value.ToString("dd/MM/yy"));
+                foreach (var item in rr)
+                {
+                    listView1.Items.Add(
+                        new ListViewItem(
+                            new string[] { item.id.ToString(), item.parcelno, item.general_numeration, item.procDate, item.name, item.price, item.dc_type, item.regDate }
+                            ));
+
+                }
             }
             catch (Exception ex)
             {
