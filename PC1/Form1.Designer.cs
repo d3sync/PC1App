@@ -56,6 +56,8 @@ namespace PC1
             this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem10 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem11 = new System.Windows.Forms.ToolStripMenuItem();
+            this.assignDriverToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.openExcel = new System.Windows.Forms.Button();
@@ -74,7 +76,6 @@ namespace PC1
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.toolStripMenuItem11 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -330,10 +331,25 @@ namespace PC1
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem11});
+            this.toolStripMenuItem11,
+            this.assignDriverToolStripMenuItem});
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
             this.toolStripMenuItem2.Size = new System.Drawing.Size(75, 20);
             this.toolStripMenuItem2.Text = "Διαχείριση";
+            // 
+            // toolStripMenuItem11
+            // 
+            this.toolStripMenuItem11.Name = "toolStripMenuItem11";
+            this.toolStripMenuItem11.Size = new System.Drawing.Size(218, 22);
+            this.toolStripMenuItem11.Text = "Αρχείο Παραδομένων (ΒΔ)";
+            this.toolStripMenuItem11.Click += new System.EventHandler(this.toolStripMenuItem11_Click);
+            // 
+            // assignDriverToolStripMenuItem
+            // 
+            this.assignDriverToolStripMenuItem.Name = "assignDriverToolStripMenuItem";
+            this.assignDriverToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.assignDriverToolStripMenuItem.Text = "Assign to Driver";
+            this.assignDriverToolStripMenuItem.Click += new System.EventHandler(this.assignDriverToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
@@ -409,6 +425,7 @@ namespace PC1
             this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.listView1.FullRowSelect = true;
+            this.listView1.GridLines = true;
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(0, 0);
             this.listView1.Name = "listView1";
@@ -475,13 +492,6 @@ namespace PC1
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
-            // 
-            // toolStripMenuItem11
-            // 
-            this.toolStripMenuItem11.Name = "toolStripMenuItem11";
-            this.toolStripMenuItem11.Size = new System.Drawing.Size(180, 22);
-            this.toolStripMenuItem11.Text = "Database Viewer";
-            this.toolStripMenuItem11.Click += new System.EventHandler(this.toolStripMenuItem11_Click);
             // 
             // Form1
             // 
@@ -559,6 +569,7 @@ namespace PC1
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Button openExcel;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem11;
+        private System.Windows.Forms.ToolStripMenuItem assignDriverToolStripMenuItem;
     }
 }
 

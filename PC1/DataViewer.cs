@@ -43,5 +43,10 @@ namespace PC1
                 //something went wrong
             }
         }
+
+        private void datePicker_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

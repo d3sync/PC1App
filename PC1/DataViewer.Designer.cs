@@ -60,6 +60,7 @@ namespace PC1
             this.datePicker.Name = "datePicker";
             this.datePicker.Size = new System.Drawing.Size(370, 23);
             this.datePicker.TabIndex = 1;
+            this.datePicker.ValueChanged += new System.EventHandler(this.datePicker_ValueChanged);
             // 
             // listView1
             // 

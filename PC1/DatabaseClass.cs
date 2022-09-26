@@ -56,6 +56,18 @@ namespace PC1
         "dc_type TEXT NOT NULL, " +
         "regDate TEXT NOT NULL)");
 
+
+        this.NonQuery("CREATE TABLE IF NOT EXISTS Parcels (" +
+            "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+            "ParcelBarcode TEXT, " +
+            "InvBarcode TEXT, " +
+            "VoucherBarcode TEXT, " +
+            "Name TEXT, " +
+            "Address TEXT, " +
+            "Price TEXT, " +
+            "Driver TEXT, " +
+            "regDate TEXT)");
+
             //this.NonQuery("CREATE TABLE IF NOT EXISTS Status (id INTEGER PRIMARY KEY AUTOINCREMENT,status TEXT NOT NULL UNIQUE)");
             //this.NonQuery("CREATE TABLE IF NOT EXISTS Inventory (order_no INTEGER PRIMARY KEY,name TEXT NOT NULL,address TEXT,company_id INTEGER NOT NULL,del_status INTEGER NOT NULL,price REAL,FOREIGN KEY(company_id) REFERENCES Companies(id),FOREIGN KEY(del_status) REFERENCES Status(id))");
             //this.NonQuery("CREATE TABLE IF NOT EXISTS Logging (id INTEGER PRIMARY KEY AUTOINCREMENT, order_no INTEGER NOT NULL, Notes TEXT, Agent TEXT, FOREIGN KEY (order_no) REFERENCES Inventory (order_no))");
@@ -104,7 +116,11 @@ namespace PC1
             //
             this.NonQuery("INSERT INTO Delivered (parcelno,general_numeration,procDate,name,price,dc_type,regDate) VALUES (" + values + ")");
         }
-
+        public void AddAssignedTo(string values)
+        {
+            //ParcelBarcode,InvBarcode,VoucherBarcode,Name,Address,Price,Driver,regDate
+            this.NonQuery("INSERT INTO Parcels (ParcelBarcode,InvBarcode,VoucherBarcode,Name,Address,Price,Driver,regDate) VALUES (" + values + ")");
+        }
         public List<DeliveredModel> GetDataByDate(string date)
         {
             List<DeliveredModel> result = new List<DeliveredModel>();
@@ -134,7 +150,6 @@ namespace PC1
         public List<DeliveredModel> GetDataByDate2(string date)
         {
             string cs = @$"URI=file:{Properties.Settings.Default.dailyFolder}\PC1db.sqlite";
-
             using var con = new SQLiteConnection(cs);
             con.Open();
             string stm = $"SELECT * FROM Delivered WHERE regDate='{date}'";
@@ -158,6 +173,37 @@ namespace PC1
                         regDate = read.GetString(7)
                     });
                     Console.WriteLine(read.GetInt32(0));
+                }
+            }
+            return result;
+        }
+        public List<AssignedtoModel> GetLoadedDataByDate(string date)
+        {
+            string cs = @$"URI=file:{Properties.Settings.Default.dailyFolder}\PC1db.sqlite";
+            using var con = new SQLiteConnection(cs);
+            con.Open();
+            string stm = $"SELECT * FROM Parcels WHERE regDate = '{date}'";
+            //string stm = "SELECT * FROM Parcels WHERE regDate = '26/09/2022'";
+            List<AssignedtoModel> result = new List<AssignedtoModel>();
+            using var cmd = new SQLiteCommand(stm, con);
+
+            using SQLiteDataReader read = cmd.ExecuteReader();
+            {
+                while (read.Read())
+                {
+                        result.Add(new AssignedtoModel()
+                        {//ParcelBarcode,InvBarcode,VoucherBarcode,Name,Address,Price,Driver,regDate
+                            id = read.GetInt32(0),
+                            ParcelBarcode = read.GetString(1),
+                            InvBarcode = read.GetString(2),
+                            VoucherBarcode = read.GetString(3),
+                            Name = read.GetString(4),
+                            Address = read.GetString(5),
+                            Price = read.GetString(6),
+                            Driver = read.GetString(7),
+                            regDate = read.GetString(8)
+                        });
+                        Console.WriteLine(read.GetInt32(0));
                 }
             }
             return result;

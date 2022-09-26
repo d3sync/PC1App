@@ -37,7 +37,7 @@ namespace PC1
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            //db.initializeDB(@$"{Properties.Settings.Default.dailyFolder}\PC1db.sqlite");
         }
         
         private void submitBtn_Click(object sender, EventArgs e)
@@ -300,6 +300,12 @@ namespace PC1
         {
             DataViewer dvForm = new DataViewer();
             dvForm.Show();
+        }
+
+        private void assignDriverToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DriversLoad drvForm = new();
+            drvForm.Show();
         }
     }
 }
