@@ -18,11 +18,12 @@ namespace PC1
         public DataViewer()
         {
             InitializeComponent();
-            db.connect();
+            
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
+            db.connect();
             listView1.Items.Clear();
             try
             {
@@ -42,6 +43,7 @@ namespace PC1
                 Console.WriteLine($"{ex.Message} --- {ex.StackTrace} --- {ex.Data} --- {ex.Source}");
                 //something went wrong
             }
+            db.closeUp();
         }
 
         private void datePicker_ValueChanged(object sender, EventArgs e)

@@ -31,7 +31,6 @@ namespace PC1
             {
                 db.initializeDB(@$"{dbFilePath}\PC1db.sqlite");
             }
-            db.connect();
             //db.AddDParcel("'23231323', '4654654654', '21/08/22', 'Alex', '23.20', 'ΑΛΠ-ΔΑ', '21/08/22'");
         }
 
@@ -178,6 +177,7 @@ namespace PC1
                 ws.Cells["A2:G2"].AutoFitColumns();
                 var i = 3;
                 var column = Convert.ToChar('A');
+                db.connect();
                 foreach (ListViewItem vitem in listView1.Items)
                 {
                     var line = "";
@@ -230,6 +230,7 @@ namespace PC1
                 {
                     MessageBox.Show(ex.Message, "Warning Issue!");
                 }
+                db.closeUp();
             }
 
         }

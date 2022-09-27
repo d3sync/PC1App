@@ -16,8 +16,6 @@ namespace PC1
         public DriversLoad()
         {
             InitializeComponent();
-            db.connect();
-
         }
 
         // Method that moves to the next control in the Form by pressing Enter or Return
@@ -37,6 +35,7 @@ namespace PC1
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
+            db.connect();
             listView1.Items.Clear();
             try
             {
@@ -54,10 +53,12 @@ namespace PC1
                 Console.WriteLine($"{ex.Message} --- {ex.StackTrace} --- {ex.Data} --- {ex.Source}");
                 //something went wrong
             }
+            db.closeUp();
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)
         { //ParcelBarcode,InvBarcode,VoucherBarcode,Name,Address,Price,Driver,regDate
+            db.connect();
             string line = $"'{txtParcelBC.Text}','{txtGeneralNumBC.Text}','{txtVoucherBC.Text}','{txtName.Text}','{txtAddress.Text}','{txtPrice.Text}','{txtDriver.Text}','{DateTime.Now.ToString("dd/MM/yyyy")}'";
             db.AddAssignedTo(line);
             //MessageBox.Show(line);
@@ -66,6 +67,7 @@ namespace PC1
                 new string[] { "N/A", txtParcelBC.Text, txtGeneralNumBC.Text, txtVoucherBC.Text, txtName.Text, txtPrice.Text }
             ));
             txtAddress.Text = txtGeneralNumBC.Text = txtGeneralNumBC.Text = txtName.Text = txtParcelBC.Text = txtVoucherBC.Text = txtPrice.Text = "";
+            db.closeUp();
         }
     }
 }
