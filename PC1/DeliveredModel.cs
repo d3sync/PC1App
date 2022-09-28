@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PC1
 {
-    class DeliveredModel
+    public class DeliveredModel
     {
         //parcelno,general_numeration,procDate,name,price,dc_type,regDate
         public int id { get; set; }

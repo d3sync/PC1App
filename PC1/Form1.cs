@@ -37,6 +37,7 @@ namespace PC1
         private void Form1_Load(object sender, EventArgs e)
         {
             //db.initializeDB(@$"{Properties.Settings.Default.dailyFolder}\PC1db.sqlite");
+            db.connect();
         }
         
         private void submitBtn_Click(object sender, EventArgs e)
@@ -305,7 +306,7 @@ namespace PC1
 
         private void assignDriverToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DriversLoad drvForm = new();
+            DriversLoad drvForm = new(db);
             drvForm.Show();
         }
     }

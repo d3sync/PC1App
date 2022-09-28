@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PC1
 {
-    class AssignedtoModel
+    public class AssignedtoModel
     { //ParcelBarcode,InvBarcode,VoucherBarcode,Name,Address,Price,Driver,regDate
         public int id { get; set; }
         public string ParcelBarcode { get; set; }

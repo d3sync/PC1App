@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PC1
 {
-    class DatabaseClass
+    public class DatabaseClass
     {
         public static string dbVar = @$"{Properties.Settings.Default.dailyFolder}\PC1db.sqlite";
         //string sql = "";
