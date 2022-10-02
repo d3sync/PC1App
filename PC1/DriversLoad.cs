@@ -13,6 +13,8 @@ namespace PC1
     public partial class DriversLoad : Form
     {
         private DatabaseClass db;
+        bool EditOn = false;
+        int EditID;
         public DriversLoad(DatabaseClass Dbi)
         {
             InitializeComponent();
@@ -57,14 +59,58 @@ namespace PC1
 
         private void btnSubmit_Click(object sender, EventArgs e)
         { //ParcelBarcode,InvBarcode,VoucherBarcode,Name,Address,Price,Driver,regDate
-            string line = $"'{txtParcelBC.Text}','{txtGeneralNumBC.Text}','{txtVoucherBC.Text}','{txtName.Text}','{txtAddress.Text}','{txtPrice.Text}','{txtDriver.Text}','{DateTime.Now.ToString("dd/MM/yyyy")}'";
-            db.AddAssignedTo(line);
-            //MessageBox.Show(line);
-            listView1.Items.Add(
-            new ListViewItem( //{txtParcelBC.Text},{txtGeneralNumBC.Text},{txtVoucherBC.Text},{txtName.Text},{txtAddress.Text},{txtPrice.Text}
-                new string[] { "N/A", txtParcelBC.Text, txtGeneralNumBC.Text, txtVoucherBC.Text, txtName.Text, txtPrice.Text }
-            ));
+            if (!EditOn)
+            {
+                string line = $"'{txtParcelBC.Text}','{txtGeneralNumBC.Text}','{txtVoucherBC.Text}','{txtName.Text}','{txtAddress.Text}','{txtPrice.Text}','{txtDriver.Text}','{DateTime.Now.ToString("dd/MM/yyyy")}'";
+                db.AddAssignedTo(line);
+                //MessageBox.Show(line);
+                listView1.Items.Add(
+                new ListViewItem( //{txtParcelBC.Text},{txtGeneralNumBC.Text},{txtVoucherBC.Text},{txtName.Text},{txtAddress.Text},{txtPrice.Text}
+                    new string[] { "N/A", txtParcelBC.Text, txtGeneralNumBC.Text, txtVoucherBC.Text, txtName.Text, txtPrice.Text }
+                ));
+            }
+            else
+            {
+                if (EditID != -1)
+                {
+                    //ParcelBarcode,InvBarcode,VoucherBarcode,Name,Address,Price,Driver
+                    string line = $"" +
+                        $"ParcelBarcode='{txtParcelBC.Text}'," +
+                        $"InvBarcode='{txtGeneralNumBC.Text}'," +
+                        $"VoucherBarcode='{txtVoucherBC.Text}'," +
+                        $"Name='{txtName.Text}'," +
+                        $"Address='{txtAddress.Text}'," +
+                        $"Price='{txtPrice.Text}'," +
+                        $"Driver='{txtDriver.Text}'";
+                    db.UpdateIntoID("Parcels", line, EditID);
+                }
+                EditOn = false;
+                EditID = -1;
+                btnSubmit.Text = "Καταχώρηση";
+                btnSearch.PerformClick();                
+            }
             txtAddress.Text = txtGeneralNumBC.Text = txtGeneralNumBC.Text = txtName.Text = txtParcelBC.Text = txtVoucherBC.Text = txtPrice.Text = "";
+        }
+
+        private void tsmiEdit_Click(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems != null)
+            {   
+                if (listView1.SelectedItems[0].SubItems[0].Text != "N/A")
+                {
+                    var res = db.GetLoadedByID(Convert.ToInt32(listView1.SelectedItems[0].SubItems[0].Text));
+                    EditID = res.id;
+                    EditOn = true;
+                    txtParcelBC.Text = res.ParcelBarcode;
+                    txtGeneralNumBC.Text = res.InvBarcode;
+                    txtVoucherBC.Text = res.VoucherBarcode;
+                    txtName.Text = res.Name;
+                    txtAddress.Text = res.Address;
+                    txtPrice.Text = res.Price;
+                    txtDriver.Text = res.Driver;
+                    btnSubmit.Text = $"Ενημέρωση ID={EditID}";
+                }
+            }
         }
     }
 }

@@ -110,6 +110,11 @@ namespace PC1
             this.NonQuery("INSERT INTO " + table + " VALUES (" + values + ")");
             //Console.WriteLine("INSERT INTO " + table + " VALUES (" + values + ")");
         }
+        public void UpdateIntoID(string table, string values, int id)
+        {
+            this.NonQuery($"UPDATE {table} SET {values} WHERE id={id}");
+            //Console.WriteLine("INSERT INTO " + table + " VALUES (" + values + ")");
+        }
 
         public void AddDParcel(string values)
         {
@@ -175,6 +180,7 @@ namespace PC1
                     Console.WriteLine(read.GetInt32(0));
                 }
             }
+            con.Dispose();
             return result;
         }
         public List<AssignedtoModel> GetLoadedDataByDate(string date)
@@ -206,6 +212,37 @@ namespace PC1
                         Console.WriteLine(read.GetInt32(0));
                 }
             }
+            con.Dispose();
+            return result;
+        }
+        public AssignedtoModel GetLoadedByID(int id)
+        {
+            string cs = @$"URI=file:{Properties.Settings.Default.dailyFolder}\PC1db.sqlite";
+            using var con = new SQLiteConnection(cs);
+            con.Open();
+            string stm = $"SELECT * FROM Parcels WHERE id = '{id}'";
+            //string stm = "SELECT * FROM Parcels WHERE regDate = '26/09/2022'";
+            AssignedtoModel result = new();
+            using var cmd = new SQLiteCommand(stm, con);
+
+            using SQLiteDataReader read = cmd.ExecuteReader();
+            {
+                while (read.Read())
+                {
+                    //ParcelBarcode,InvBarcode,VoucherBarcode,Name,Address,Price,Driver,regDate
+                    result.id = read.GetInt32(0);
+                    result.ParcelBarcode = read.GetString(1);
+                    result.InvBarcode = read.GetString(2);
+                    result.VoucherBarcode = read.GetString(3);
+                    result.Name = read.GetString(4);
+                    result.Address = read.GetString(5);
+                    result.Price = read.GetString(6);
+                    result.Driver = read.GetString(7);
+                    result.regDate = read.GetString(8);
+                }
+                    //Console.WriteLine(read.GetInt32(0));
+            }
+            con.Dispose();
             return result;
         }
     }

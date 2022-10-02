@@ -169,7 +169,7 @@ namespace PC1
                 ws.Cells["C2"].Value = "Ημ τιμολόγισης";
                 ws.Cells["D2"].Value = "Επωνυμία";
                 ws.Cells["E2"].Value = "Ποσό";
-                ws.Cells["F2"].Value = "Τύπος Παραστατικού";
+                ws.Cells["F2"].Value = "Τύπος Παρ/κού";
                 ws.Cells["G2"].Value = "Ημ/νία Καταχώρησης";
                 ws.Cells["A2:G2"].Style.Font.Bold = true;
                 ws.Cells["A2:G2"].Style.Fill.PatternType = ExcelFillStyle.Solid;

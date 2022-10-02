@@ -29,6 +29,7 @@ namespace PC1
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnSubmit = new System.Windows.Forms.Button();
             this.txtDriver = new System.Windows.Forms.TextBox();
@@ -54,7 +55,11 @@ namespace PC1
             this.voucherCode = new System.Windows.Forms.ColumnHeader();
             this.name = new System.Windows.Forms.ColumnHeader();
             this.price = new System.Windows.Forms.ColumnHeader();
+            this.cntMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
+            this.cntMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -238,6 +243,7 @@ namespace PC1
             this.voucherCode,
             this.name,
             this.price});
+            this.listView1.ContextMenuStrip = this.cntMenu;
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
             this.listView1.HideSelection = false;
@@ -283,6 +289,28 @@ namespace PC1
             this.price.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.price.Width = 80;
             // 
+            // cntMenu
+            // 
+            this.cntMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiEdit,
+            this.tsmiDelete});
+            this.cntMenu.Name = "cntMenu";
+            this.cntMenu.Size = new System.Drawing.Size(181, 70);
+            // 
+            // tsmiEdit
+            // 
+            this.tsmiEdit.Name = "tsmiEdit";
+            this.tsmiEdit.Size = new System.Drawing.Size(180, 22);
+            this.tsmiEdit.Text = "Edit";
+            this.tsmiEdit.Click += new System.EventHandler(this.tsmiEdit_Click);
+            // 
+            // tsmiDelete
+            // 
+            this.tsmiDelete.Enabled = false;
+            this.tsmiDelete.Name = "tsmiDelete";
+            this.tsmiDelete.Size = new System.Drawing.Size(107, 22);
+            this.tsmiDelete.Text = "Delete";
+            // 
             // DriversLoad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -296,6 +324,7 @@ namespace PC1
             this.Text = "Ανάθεση Δεμάτων";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.cntMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -327,5 +356,8 @@ namespace PC1
         private System.Windows.Forms.ColumnHeader voucherCode;
         private System.Windows.Forms.ColumnHeader name;
         private System.Windows.Forms.ColumnHeader price;
+        private System.Windows.Forms.ContextMenuStrip cntMenu;
+        private System.Windows.Forms.ToolStripMenuItem tsmiEdit;
+        private System.Windows.Forms.ToolStripMenuItem tsmiDelete;
     }
 }
