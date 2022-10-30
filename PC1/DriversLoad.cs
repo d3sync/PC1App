@@ -52,7 +52,8 @@ namespace PC1
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"{ex.Message} --- {ex.StackTrace} --- {ex.Data} --- {ex.Source}");
+                Console.WriteLine(string.Format("{0} --- {1} --- {2} --- {3}", ex.Message, ex.StackTrace, ex.Data,
+                    ex.Source));
                 //something went wrong
             }
         }
@@ -61,7 +62,7 @@ namespace PC1
         { //ParcelBarcode,InvBarcode,VoucherBarcode,Name,Address,Price,Driver,regDate
             if (!EditOn)
             {
-                string line = $"'{txtParcelBC.Text}','{txtGeneralNumBC.Text}','{txtVoucherBC.Text}','{txtName.Text}','{txtAddress.Text}','{txtPrice.Text}','{txtDriver.Text}','{DateTime.Now.ToString("dd/MM/yyyy")}'";
+                var line = $"'{txtParcelBC.Text}','{txtGeneralNumBC.Text}','{txtVoucherBC.Text}','{txtName.Text}','{txtAddress.Text}','{txtPrice.Text}','{txtDriver.Text}','{DateTime.Now.ToString("dd/MM/yyyy")}'";
                 db.AddAssignedTo(line);
                 //MessageBox.Show(line);
                 listView1.Items.Add(
@@ -74,7 +75,7 @@ namespace PC1
                 if (EditID != -1)
                 {
                     //ParcelBarcode,InvBarcode,VoucherBarcode,Name,Address,Price,Driver
-                    string line = $"" +
+                    var line = $"" +
                         $"ParcelBarcode='{txtParcelBC.Text}'," +
                         $"InvBarcode='{txtGeneralNumBC.Text}'," +
                         $"VoucherBarcode='{txtVoucherBC.Text}'," +
@@ -94,7 +95,7 @@ namespace PC1
 
         private void tsmiEdit_Click(object sender, EventArgs e)
         {
-            if (listView1.SelectedItems != null)
+            if (listView1.SelectedItems[0] != null)
             {   
                 if (listView1.SelectedItems[0].SubItems[0].Text != "N/A")
                 {
@@ -111,6 +112,15 @@ namespace PC1
                     btnSubmit.Text = $"Ενημέρωση ID={EditID}";
                 }
             }
+        }
+
+        private void txtName_TextChanged(object sender, EventArgs e)
+        {
+            TextBox currentContainer = ((TextBox)sender);
+            int caretPosition = currentContainer.SelectionStart;
+
+            currentContainer.Text = currentContainer.Text.ToUpper();
+            currentContainer.SelectionStart = caretPosition++;
         }
     }
 }

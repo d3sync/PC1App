@@ -60,8 +60,11 @@ namespace PC1
             this.assignDriverToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.ekMetaforas = new System.Windows.Forms.TextBox();
+            this.eisMetaforan = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.openExcel = new System.Windows.Forms.Button();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.btnSaveExcel = new System.Windows.Forms.Button();
             this.listView1 = new System.Windows.Forms.ListView();
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
@@ -74,6 +77,7 @@ namespace PC1
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.groupBox1.SuspendLayout();
@@ -198,6 +202,7 @@ namespace PC1
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(200, 23);
             this.txtName.TabIndex = 4;
+            this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             // 
             // label4
             // 
@@ -365,8 +370,11 @@ namespace PC1
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.ekMetaforas);
+            this.splitContainer1.Panel1.Controls.Add(this.eisMetaforan);
+            this.splitContainer1.Panel1.Controls.Add(this.label9);
+            this.splitContainer1.Panel1.Controls.Add(this.label7);
             this.splitContainer1.Panel1.Controls.Add(this.openExcel);
-            this.splitContainer1.Panel1.Controls.Add(this.richTextBox1);
             this.splitContainer1.Panel1.Controls.Add(this.btnSaveExcel);
             this.splitContainer1.Panel1.Controls.Add(this.groupBox1);
             this.splitContainer1.Panel1.Cursor = System.Windows.Forms.Cursors.Default;
@@ -379,6 +387,47 @@ namespace PC1
             this.splitContainer1.SplitterDistance = 374;
             this.splitContainer1.TabIndex = 4;
             // 
+            // ekMetaforas
+            // 
+            this.ekMetaforas.Location = new System.Drawing.Point(159, 389);
+            this.ekMetaforas.Name = "ekMetaforas";
+            this.ekMetaforas.Size = new System.Drawing.Size(100, 23);
+            this.ekMetaforas.TabIndex = 9;
+            this.toolTip1.SetToolTip(this.ekMetaforas, "Αλλάζουμε μόνο εάν χρειάζεται μπαίνει το ποσό της προηγούμενης είσπραξης");
+            this.ekMetaforas.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrice_KeyPress);
+            this.ekMetaforas.Leave += new System.EventHandler(this.ekMetaforas_TextChanged);
+            // 
+            // eisMetaforan
+            // 
+            this.eisMetaforan.Enabled = false;
+            this.eisMetaforan.Location = new System.Drawing.Point(159, 360);
+            this.eisMetaforan.Name = "eisMetaforan";
+            this.eisMetaforan.Size = new System.Drawing.Size(100, 23);
+            this.eisMetaforan.TabIndex = 8;
+            this.eisMetaforan.Visible = false;
+            this.eisMetaforan.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrice_KeyPress);
+            this.eisMetaforan.Leave += new System.EventHandler(this.eisMetaforan_TextChanged);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(12, 392);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(115, 15);
+            this.label9.TabIndex = 7;
+            this.label9.Text = "Ποσό εκ μεταφοράς";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Enabled = false;
+            this.label7.Location = new System.Drawing.Point(12, 363);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(118, 15);
+            this.label7.TabIndex = 5;
+            this.label7.Text = "Ποσό είς μεταφοράν";
+            this.label7.Visible = false;
+            // 
             // openExcel
             // 
             this.openExcel.Font = new System.Drawing.Font("Segoe UI Emoji", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
@@ -389,15 +438,6 @@ namespace PC1
             this.openExcel.Text = "Άνοιγμα Excel";
             this.openExcel.UseVisualStyleBackColor = true;
             this.openExcel.Click += new System.EventHandler(this.openExcel_Click);
-            // 
-            // richTextBox1
-            // 
-            this.richTextBox1.Location = new System.Drawing.Point(3, 355);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(364, 90);
-            this.richTextBox1.TabIndex = 1;
-            this.richTextBox1.Text = "";
-            this.richTextBox1.Visible = false;
             // 
             // btnSaveExcel
             // 
@@ -421,7 +461,6 @@ namespace PC1
             this.columnHeader6,
             this.columnHeader8});
             this.listView1.ContextMenuStrip = this.contextMenuStrip1;
-            this.listView1.Cursor = System.Windows.Forms.Cursors.Default;
             this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.listView1.FullRowSelect = true;
@@ -489,6 +528,15 @@ namespace PC1
             this.toolStripMenuItem5.Text = "Delete Record";
             this.toolStripMenuItem5.Click += new System.EventHandler(this.toolStripMenuItem5_Click);
             // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(12, 478);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(364, 13);
+            this.richTextBox1.TabIndex = 1;
+            this.richTextBox1.Text = "";
+            this.richTextBox1.Visible = false;
+            // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
@@ -500,6 +548,7 @@ namespace PC1
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnClear;
             this.ClientSize = new System.Drawing.Size(1184, 501);
+            this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -514,6 +563,7 @@ namespace PC1
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
@@ -570,6 +620,10 @@ namespace PC1
         private System.Windows.Forms.Button openExcel;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem11;
         private System.Windows.Forms.ToolStripMenuItem assignDriverToolStripMenuItem;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox ekMetaforas;
+        private System.Windows.Forms.TextBox eisMetaforan;
     }
 }
 

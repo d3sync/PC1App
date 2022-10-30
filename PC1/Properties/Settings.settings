@@ -8,5 +8,11 @@
     <Setting Name="storeName" Type="System.String" Scope="User">
       <Value Profile="(Default)">ΕΛΛΗΝΙΚΟΥ</Value>
     </Setting>
+    <Setting Name="lastdinero" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="nextdinero" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -30,6 +30,7 @@ namespace PC1
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DriversLoad));
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnSubmit = new System.Windows.Forms.Button();
             this.txtDriver = new System.Windows.Forms.TextBox();
@@ -102,6 +103,7 @@ namespace PC1
             this.txtDriver.Name = "txtDriver";
             this.txtDriver.Size = new System.Drawing.Size(172, 23);
             this.txtDriver.TabIndex = 13;
+            this.txtDriver.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             this.txtDriver.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Control_KeyUp);
             // 
             // label7
@@ -136,6 +138,7 @@ namespace PC1
             this.txtAddress.Name = "txtAddress";
             this.txtAddress.Size = new System.Drawing.Size(172, 23);
             this.txtAddress.TabIndex = 9;
+            this.txtAddress.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             this.txtAddress.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Control_KeyUp);
             // 
             // label5
@@ -153,6 +156,7 @@ namespace PC1
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(172, 23);
             this.txtName.TabIndex = 7;
+            this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             this.txtName.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Control_KeyUp);
             // 
             // label4
@@ -295,12 +299,12 @@ namespace PC1
             this.tsmiEdit,
             this.tsmiDelete});
             this.cntMenu.Name = "cntMenu";
-            this.cntMenu.Size = new System.Drawing.Size(181, 70);
+            this.cntMenu.Size = new System.Drawing.Size(108, 48);
             // 
             // tsmiEdit
             // 
             this.tsmiEdit.Name = "tsmiEdit";
-            this.tsmiEdit.Size = new System.Drawing.Size(180, 22);
+            this.tsmiEdit.Size = new System.Drawing.Size(107, 22);
             this.tsmiEdit.Text = "Edit";
             this.tsmiEdit.Click += new System.EventHandler(this.tsmiEdit_Click);
             // 
@@ -320,6 +324,7 @@ namespace PC1
             this.Controls.Add(this.datePicker);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DriversLoad";
             this.Text = "Ανάθεση Δεμάτων";
             this.panel1.ResumeLayout(false);
