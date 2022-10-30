@@ -32,6 +32,8 @@ namespace PC1
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DriversLoad));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.mCalLoad = new System.Windows.Forms.MonthCalendar();
             this.btnSubmit = new System.Windows.Forms.Button();
             this.txtDriver = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -65,6 +67,8 @@ namespace PC1
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.mCalLoad);
             this.panel1.Controls.Add(this.btnSubmit);
             this.panel1.Controls.Add(this.txtDriver);
             this.panel1.Controls.Add(this.label7);
@@ -84,6 +88,24 @@ namespace PC1
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(289, 450);
             this.panel1.TabIndex = 0;
+            // 
+            // button1
+            // 
+            this.button1.Image = global::PC1.Properties.Resources.refresh_1_;
+            this.button1.Location = new System.Drawing.Point(11, 270);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(53, 41);
+            this.button1.TabIndex = 16;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // mCalLoad
+            // 
+            this.mCalLoad.Location = new System.Drawing.Point(67, 270);
+            this.mCalLoad.MaxSelectionCount = 1;
+            this.mCalLoad.Name = "mCalLoad";
+            this.mCalLoad.TabIndex = 15;
+            this.mCalLoad.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.mCalLoad_DateSelected);
             // 
             // btnSubmit
             // 
@@ -327,6 +349,7 @@ namespace PC1
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DriversLoad";
             this.Text = "Ανάθεση Δεμάτων";
+            this.Load += new System.EventHandler(this.DriversLoad_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.cntMenu.ResumeLayout(false);
@@ -364,5 +387,7 @@ namespace PC1
         private System.Windows.Forms.ContextMenuStrip cntMenu;
         private System.Windows.Forms.ToolStripMenuItem tsmiEdit;
         private System.Windows.Forms.ToolStripMenuItem tsmiDelete;
+        private System.Windows.Forms.MonthCalendar mCalLoad;
+        private System.Windows.Forms.Button button1;
     }
 }

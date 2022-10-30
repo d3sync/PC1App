@@ -40,13 +40,15 @@ namespace PC1
             this.price = new System.Windows.Forms.ColumnHeader();
             this.dcType = new System.Windows.Forms.ColumnHeader();
             this.regDate = new System.Windows.Forms.ColumnHeader();
+            this.mCalLoad = new System.Windows.Forms.MonthCalendar();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(388, 12);
+            this.btnSearch.Location = new System.Drawing.Point(788, 35);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(400, 23);
+            this.btnSearch.Size = new System.Drawing.Size(301, 23);
             this.btnSearch.TabIndex = 2;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
@@ -56,11 +58,10 @@ namespace PC1
             // 
             this.datePicker.CustomFormat = "dd/MM/yyyy";
             this.datePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.datePicker.Location = new System.Drawing.Point(12, 12);
+            this.datePicker.Location = new System.Drawing.Point(788, 6);
             this.datePicker.Name = "datePicker";
-            this.datePicker.Size = new System.Drawing.Size(370, 23);
+            this.datePicker.Size = new System.Drawing.Size(301, 23);
             this.datePicker.TabIndex = 1;
-            this.datePicker.ValueChanged += new System.EventHandler(this.datePicker_ValueChanged);
             // 
             // listView1
             // 
@@ -74,7 +75,7 @@ namespace PC1
             this.dcType,
             this.regDate});
             this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(12, 41);
+            this.listView1.Location = new System.Drawing.Point(6, 6);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(776, 397);
             this.listView1.TabIndex = 4;
@@ -126,16 +127,37 @@ namespace PC1
             this.regDate.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.regDate.Width = 130;
             // 
+            // mCalLoad
+            // 
+            this.mCalLoad.Location = new System.Drawing.Point(876, 70);
+            this.mCalLoad.MaxSelectionCount = 1;
+            this.mCalLoad.Name = "mCalLoad";
+            this.mCalLoad.TabIndex = 5;
+            this.mCalLoad.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.mCalLoad_DateSelected);
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Image = global::PC1.Properties.Resources.refresh_1_;
+            this.btnRefresh.Location = new System.Drawing.Point(788, 70);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(76, 41);
+            this.btnRefresh.TabIndex = 17;
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
             // DataViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1096, 412);
+            this.Controls.Add(this.btnRefresh);
+            this.Controls.Add(this.mCalLoad);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.datePicker);
             this.Controls.Add(this.btnSearch);
             this.Name = "DataViewer";
             this.Text = "DataViewer";
+            this.Load += new System.EventHandler(this.DataViewer_Load);
             this.ResumeLayout(false);
 
         }
@@ -153,5 +175,7 @@ namespace PC1
         private System.Windows.Forms.ColumnHeader price;
         private System.Windows.Forms.ColumnHeader regDate;
         private System.Windows.Forms.ColumnHeader dcType;
+        private System.Windows.Forms.MonthCalendar mCalLoad;
+        private System.Windows.Forms.Button btnRefresh;
     }
 }

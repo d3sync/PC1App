@@ -142,6 +142,7 @@ namespace PC1
 
         private void button1_Click(object sender, EventArgs e)
         {
+            this.UseWaitCursor = true;
             var path = Properties.Settings.Default.dailyFolder;
                 //MessageBox.Show(path);
             var store = Properties.Settings.Default.storeName;
@@ -311,6 +312,7 @@ namespace PC1
                 }
                 db.closeUp();
             }
+            this.UseWaitCursor = false;
 
         }
 

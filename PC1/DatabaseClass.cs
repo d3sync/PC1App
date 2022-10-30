@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 namespace PC1
 {
@@ -125,6 +127,25 @@ namespace PC1
         {
             //ParcelBarcode,InvBarcode,VoucherBarcode,Name,Address,Price,Driver,regDate
             this.NonQuery("INSERT INTO Parcels (ParcelBarcode,InvBarcode,VoucherBarcode,Name,Address,Price,Driver,regDate) VALUES (" + values + ")");
+        }
+
+        public List<DateTime> GetDates(string table)
+        {
+            string cs = @$"URI=file:{Properties.Settings.Default.dailyFolder}\PC1db.sqlite";
+            using var con = new SQLiteConnection(cs);
+            con.Open();
+            List<DateTime> dates = new();
+            string sql = $"SELECT DISTINCT regDate from {table}";
+            SQLiteCommand command = new SQLiteCommand(sql, con);
+            using (SQLiteDataReader read = command.ExecuteReader())
+            {
+                while (read.Read())
+                {
+                    dates.Add(DateTime.Parse(read.GetString(0)));
+                }
+            }
+            con.Close();
+            return dates;
         }
         public List<DeliveredModel> GetDataByDate(string date)
         {

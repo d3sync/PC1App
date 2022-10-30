@@ -18,7 +18,7 @@ namespace PC1
         public DataViewer()
         {
             InitializeComponent();
-            
+            btnRefresh.PerformClick();
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -46,9 +46,21 @@ namespace PC1
             db.closeUp();
         }
 
-        private void datePicker_ValueChanged(object sender, EventArgs e)
+        private void btnRefresh_Click(object sender, EventArgs e)
         {
+            var rr = db.GetDates("Delivered");
+            mCalLoad.BoldedDates = rr.ToArray();
+        }
 
+        private void mCalLoad_DateSelected(object sender, DateRangeEventArgs e)
+        {
+            datePicker.Value = mCalLoad.SelectionStart;
+            btnSearch.PerformClick();
+        }
+
+        private void DataViewer_Load(object sender, EventArgs e)
+        {
+            btnRefresh.PerformClick();
         }
     }
 }

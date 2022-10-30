@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 namespace PC1
 {
@@ -121,6 +122,23 @@ namespace PC1
 
             currentContainer.Text = currentContainer.Text.ToUpper();
             currentContainer.SelectionStart = caretPosition++;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var rr = db.GetDates("parcels");
+            mCalLoad.BoldedDates = rr.ToArray();
+        }
+
+        private void mCalLoad_DateSelected(object sender, DateRangeEventArgs e)
+        {
+            datePicker.Value = mCalLoad.SelectionStart;
+            btnSearch.PerformClick();
+        }
+
+        private void DriversLoad_Load(object sender, EventArgs e)
+        {
+            button1.PerformClick();
         }
     }
 }
