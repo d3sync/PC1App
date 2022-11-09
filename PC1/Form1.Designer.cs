@@ -109,7 +109,7 @@ namespace PC1
             this.groupBox1.Controls.Add(this.submitBtn);
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(364, 262);
+            this.groupBox1.Size = new System.Drawing.Size(364, 278);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Καταχώρηση";
@@ -126,11 +126,11 @@ namespace PC1
             // btnClear
             // 
             this.btnClear.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnClear.Location = new System.Drawing.Point(9, 237);
+            this.btnClear.Image = global::PC1.Properties.Resources.icons8_broom_40;
+            this.btnClear.Location = new System.Drawing.Point(9, 217);
             this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(102, 23);
+            this.btnClear.Size = new System.Drawing.Size(118, 55);
             this.btnClear.TabIndex = 19;
-            this.btnClear.Text = "Καθαρισμός";
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
@@ -259,11 +259,11 @@ namespace PC1
             // submitBtn
             // 
             this.submitBtn.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.submitBtn.Image = global::PC1.Properties.Resources.icons8_submit_progress_50;
             this.submitBtn.Location = new System.Drawing.Point(156, 223);
             this.submitBtn.Name = "submitBtn";
-            this.submitBtn.Size = new System.Drawing.Size(200, 37);
+            this.submitBtn.Size = new System.Drawing.Size(200, 49);
             this.submitBtn.TabIndex = 10;
-            this.submitBtn.Text = "Καταχώρηση";
             this.submitBtn.UseVisualStyleBackColor = true;
             this.submitBtn.Click += new System.EventHandler(this.submitBtn_Click);
             // 
@@ -389,7 +389,7 @@ namespace PC1
             // 
             // ekMetaforas
             // 
-            this.ekMetaforas.Location = new System.Drawing.Point(159, 389);
+            this.ekMetaforas.Location = new System.Drawing.Point(193, 415);
             this.ekMetaforas.Name = "ekMetaforas";
             this.ekMetaforas.Size = new System.Drawing.Size(100, 23);
             this.ekMetaforas.TabIndex = 9;
@@ -400,7 +400,7 @@ namespace PC1
             // eisMetaforan
             // 
             this.eisMetaforan.Enabled = false;
-            this.eisMetaforan.Location = new System.Drawing.Point(159, 360);
+            this.eisMetaforan.Location = new System.Drawing.Point(193, 386);
             this.eisMetaforan.Name = "eisMetaforan";
             this.eisMetaforan.Size = new System.Drawing.Size(100, 23);
             this.eisMetaforan.TabIndex = 8;
@@ -411,7 +411,7 @@ namespace PC1
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(12, 392);
+            this.label9.Location = new System.Drawing.Point(46, 418);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(115, 15);
             this.label9.TabIndex = 7;
@@ -421,7 +421,7 @@ namespace PC1
             // 
             this.label7.AutoSize = true;
             this.label7.Enabled = false;
-            this.label7.Location = new System.Drawing.Point(12, 363);
+            this.label7.Location = new System.Drawing.Point(46, 389);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(118, 15);
             this.label7.TabIndex = 5;
@@ -431,7 +431,9 @@ namespace PC1
             // openExcel
             // 
             this.openExcel.Font = new System.Drawing.Font("Segoe UI Emoji", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
-            this.openExcel.Location = new System.Drawing.Point(4, 309);
+            this.openExcel.Image = global::PC1.Properties.Resources.icons8_microsoft_excel_48;
+            this.openExcel.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.openExcel.Location = new System.Drawing.Point(4, 342);
             this.openExcel.Name = "openExcel";
             this.openExcel.Size = new System.Drawing.Size(356, 40);
             this.openExcel.TabIndex = 4;
@@ -442,11 +444,11 @@ namespace PC1
             // btnSaveExcel
             // 
             this.btnSaveExcel.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnSaveExcel.Location = new System.Drawing.Point(3, 269);
+            this.btnSaveExcel.Image = global::PC1.Properties.Resources.icons8_save_all_50;
+            this.btnSaveExcel.Location = new System.Drawing.Point(3, 281);
             this.btnSaveExcel.Name = "btnSaveExcel";
-            this.btnSaveExcel.Size = new System.Drawing.Size(356, 40);
+            this.btnSaveExcel.Size = new System.Drawing.Size(364, 55);
             this.btnSaveExcel.TabIndex = 3;
-            this.btnSaveExcel.Text = "Αποθήκευση σε Excel";
             this.btnSaveExcel.UseVisualStyleBackColor = true;
             this.btnSaveExcel.Click += new System.EventHandler(this.button1_Click);
             // 

@@ -110,11 +110,11 @@ namespace PC1
             // btnSubmit
             // 
             this.btnSubmit.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnSubmit.Image = global::PC1.Properties.Resources.icons8_enter_key_50;
             this.btnSubmit.Location = new System.Drawing.Point(114, 209);
             this.btnSubmit.Name = "btnSubmit";
-            this.btnSubmit.Size = new System.Drawing.Size(172, 23);
+            this.btnSubmit.Size = new System.Drawing.Size(172, 49);
             this.btnSubmit.TabIndex = 14;
-            this.btnSubmit.Text = "Καταχώρηση";
             this.btnSubmit.UseVisualStyleBackColor = true;
             this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
             this.btnSubmit.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Control_KeyUp);
@@ -245,18 +245,18 @@ namespace PC1
             // 
             this.datePicker.CustomFormat = "dd/MM/yyyy";
             this.datePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.datePicker.Location = new System.Drawing.Point(375, 6);
+            this.datePicker.Location = new System.Drawing.Point(629, 21);
             this.datePicker.Name = "datePicker";
             this.datePicker.Size = new System.Drawing.Size(166, 23);
             this.datePicker.TabIndex = 3;
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(547, 6);
+            this.btnSearch.Image = global::PC1.Properties.Resources.icons8_search_50;
+            this.btnSearch.Location = new System.Drawing.Point(803, 6);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(196, 23);
+            this.btnSearch.Size = new System.Drawing.Size(76, 55);
             this.btnSearch.TabIndex = 4;
-            this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
@@ -273,9 +273,9 @@ namespace PC1
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
             this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(293, 35);
+            this.listView1.Location = new System.Drawing.Point(293, 67);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(506, 415);
+            this.listView1.Size = new System.Drawing.Size(586, 383);
             this.listView1.TabIndex = 5;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -341,7 +341,7 @@ namespace PC1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(881, 450);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.datePicker);
             this.Controls.Add(this.btnSearch);

@@ -7,6 +7,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.Intrinsics.X86;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 
@@ -14,7 +15,7 @@ namespace PC1
 {
     public partial class Form1 : Form
     {
-        bool editOn = false; 
+        bool editOn = false;
         string fileStr;
         private DatabaseClass db = new();
 
@@ -42,24 +43,32 @@ namespace PC1
             //db.initializeDB(@$"{Properties.Settings.Default.dailyFolder}\PC1db.sqlite");
             db.connect();
         }
-        
+
         private void submitBtn_Click(object sender, EventArgs e)
         {
             bool contPerform = true;
             foreach (Control c in groupBox1.Controls)
+            {
+                if (c is TextBox)
                 {
-                    if (c is TextBox)
+                    TextBox textBox = c as TextBox;
+                    if (textBox.Text == "")
                     {
-                        TextBox textBox = c as TextBox;
-                        if (textBox.Text == "")
-                        {
-                            textBox.Focus();
-                            contPerform = false;
-                        }
+                        textBox.Focus();
+                        contPerform = false;
                     }
                 }
+            }
             if (contPerform == true)
             {
+                Regex regex = new Regex("^[a-zA-Zα-ωΑ-Ω.,]+$");
+                bool hasOnlyAlpha = regex.IsMatch(txtPrice.Text);
+                if (hasOnlyAlpha)
+                {
+                    txtPrice.Text = txtPrice.Text.Replace('.', ' ');
+                    txtPrice.Text = txtPrice.Text.Replace(',', ' ');
+                    txtPrice.Text = txtPrice.Text.Replace(" ", string.Empty);
+                }
                 if (editOn == false)
                 {
                     listView1.Items.Add(
@@ -81,7 +90,7 @@ namespace PC1
                     listView1.SelectedItems[0].SubItems[1].Text = txtGeneralNumeration.Text;
                     listView1.SelectedItems[0].SubItems[2].Text = procDate.Value.ToString("dd/MM/yy");
                     listView1.SelectedItems[0].SubItems[3].Text = txtName.Text;
-                    listView1.SelectedItems[0].SubItems[4].Text = txtPrice.Text.Replace(",",".");
+                    listView1.SelectedItems[0].SubItems[4].Text = txtPrice.Text.Replace(",", ".");
                     listView1.SelectedItems[0].SubItems[5].Text = cmbType.Text;
                     listView1.SelectedItems[0].SubItems[6].Text = deliveredDate.Value.ToString("dd/MM/yy");
                     editOn = false;
@@ -144,7 +153,7 @@ namespace PC1
         {
             this.UseWaitCursor = true;
             var path = Properties.Settings.Default.dailyFolder;
-                //MessageBox.Show(path);
+            //MessageBox.Show(path);
             var store = Properties.Settings.Default.storeName;
             fileStr = @$"{path}\PC1 ΗΜΕΡΗΣΙΟ {store} {DateTime.Now.ToString("MMMM yyyy").ToUpper()}.xlsx";
             var file = new FileInfo(fileStr);
@@ -160,7 +169,7 @@ namespace PC1
                     package.Workbook.Worksheets.Add($"{DateTime.Now.ToString("dd-MM")}");
                 }
                 var count = package.Workbook.Worksheets.Count;
-                var ws = package.Workbook.Worksheets[count-1];
+                var ws = package.Workbook.Worksheets[count - 1];
 
                 ws.Cells["A1:B1"].Merge = true;
                 ws.Cells["C1"].Value = $"VFS {store}";
@@ -197,7 +206,7 @@ namespace PC1
                 foreach (ListViewItem vitem in listView1.Items)
                 {
                     var line = "";
-                    var ii = 0;                    
+                    var ii = 0;
                     foreach (ListViewItem.ListViewSubItem eitem in vitem.SubItems)
                     {
                         line += $"'{eitem.Text}',";
@@ -220,10 +229,10 @@ namespace PC1
                             {
                                 sum += Convert.ToDouble(eitem.Text);
                             }
-                            catch {}
+                            catch { }
                         }
                         ii++;
-                    }                    
+                    }
                     i++;
                     line = line.TrimEnd(',');
                     try
@@ -256,7 +265,7 @@ namespace PC1
                 ws.Cells[$"A{i + 4}"].Value = "Ημερομηνία Παραλαβής:";
                 ws.Cells[$"C{i + 4}"].Style.Numberformat.Format = DateTimeFormatInfo.CurrentInfo.ShortDatePattern;
                 ws.Cells[$"C{i + 4}"].Value = DateTime.Now.ToString("dd/MM/yyyy");
-                ws.Cells[$"C{i + 4}"].AddComment("Αλλάξτε Ημερομηνία αν διαφέρει...","Αλέξανδρος");
+                ws.Cells[$"C{i + 4}"].AddComment("Αλλάξτε Ημερομηνία αν διαφέρει...", "Αλέξανδρος");
                 ws.Cells[$"D{i + 4}"].Value = "Σύνολο Μετρητών:";
                 ws.Cells[$"G{i + 4}"].Style.Numberformat.Format = "€#,##0.00";
                 ws.Cells[$"G{i + 4}"].Value = $"{this.LastDinero}";
@@ -290,10 +299,10 @@ namespace PC1
                 ws.Cells[$"A{i + 9}:F{i + 9}"].Merge = true;
                 ws.Cells[$"A{i + 10}:F{i + 10}"].Merge = true;
 
-                ExcelWorksheet worksheet = ws.Workbook.Worksheets[ws.Workbook.Worksheets.Count-1];
+                ExcelWorksheet worksheet = ws.Workbook.Worksheets[ws.Workbook.Worksheets.Count - 1];
                 ws.PrinterSettings.Orientation = eOrientation.Landscape;
                 worksheet.Workbook.Properties.Author = "d3sync";
-                
+
                 try
                 {
                     package.Save();
@@ -318,7 +327,8 @@ namespace PC1
 
         public double LastDinero
         {
-            get {
+            get
+            {
                 return Properties.Settings.Default.lastdinero;
             }
             set
@@ -391,7 +401,7 @@ namespace PC1
         private void txtPrice_KeyPress(object sender, KeyPressEventArgs e)
         {
             TextBox current = (TextBox)sender;
-            if (e.KeyChar == '.') 
+            if (e.KeyChar == '.')
             {
                 e.Handled = true;
                 current.Text += ",";
@@ -423,7 +433,7 @@ namespace PC1
             {
                 this.NextDinero = Convert.ToDouble(eisMetaforan.Text);
             }
-            catch {}
+            catch { }
         }
 
         private void ekMetaforas_TextChanged(object sender, EventArgs e)
@@ -431,14 +441,14 @@ namespace PC1
             try
             {
                 this.LastDinero = Convert.ToDouble(ekMetaforas.Text);
-            } catch {}
+            }
+            catch { }
         }
 
         private void txtName_TextChanged(object sender, EventArgs e)
         {
             TextBox currentContainer = ((TextBox)sender);
             int caretPosition = currentContainer.SelectionStart;
-
             currentContainer.Text = currentContainer.Text.ToUpper();
             currentContainer.SelectionStart = caretPosition++;
         }
