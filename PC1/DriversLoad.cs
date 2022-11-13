@@ -179,6 +179,7 @@ namespace PC1
                 {
                     _context.AssignedtoModel.Remove(res);
                     _context.SaveChanges();
+                    listView1.SelectedItems[0].Remove();
                 }
                 
             }
