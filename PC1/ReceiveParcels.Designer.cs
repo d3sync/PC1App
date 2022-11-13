@@ -70,11 +70,11 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.cmlv_SendToForm = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.tssLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.tssLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -303,6 +303,7 @@
             this.listView1.TabIndex = 33;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
+            this.listView1.DoubleClick += new System.EventHandler(this.cmlv_Delete_Click);
             // 
             // id
             // 
@@ -422,22 +423,6 @@
             this.cmlv_SendToForm.Text = "Προς Απόδοση";
             this.cmlv_SendToForm.Click += new System.EventHandler(this.cmlv_SendToForm_Click);
             // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tssLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 496);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1309, 22);
-            this.statusStrip1.TabIndex = 34;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // tssLabel
-            // 
-            this.tssLabel.Name = "tssLabel";
-            this.tssLabel.Size = new System.Drawing.Size(12, 17);
-            this.tssLabel.Text = "-";
-            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Brown;
@@ -464,6 +449,22 @@
             this.panel4.Size = new System.Drawing.Size(25, 22);
             this.panel4.TabIndex = 36;
             this.toolTip1.SetToolTip(this.panel4, "Παραδομένα");
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tssLabel});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 496);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(1309, 22);
+            this.statusStrip1.TabIndex = 34;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // tssLabel
+            // 
+            this.tssLabel.Name = "tssLabel";
+            this.tssLabel.Size = new System.Drawing.Size(12, 17);
+            this.tssLabel.Text = "-";
             // 
             // label9
             // 
