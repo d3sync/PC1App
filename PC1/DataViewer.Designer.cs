@@ -29,6 +29,7 @@ namespace PC1
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DataViewer));
             this.btnSearch = new System.Windows.Forms.Button();
             this.datePicker = new System.Windows.Forms.DateTimePicker();
             this.listView1 = new System.Windows.Forms.ListView();
@@ -56,7 +57,7 @@ namespace PC1
             // 
             // datePicker
             // 
-            this.datePicker.CustomFormat = "dd/MM/yyyy";
+            this.datePicker.CustomFormat = "dd/MM/yy";
             this.datePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.datePicker.Location = new System.Drawing.Point(788, 6);
             this.datePicker.Name = "datePicker";
@@ -74,7 +75,6 @@ namespace PC1
             this.price,
             this.dcType,
             this.regDate});
-            this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(6, 6);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(776, 397);
@@ -155,6 +155,7 @@ namespace PC1
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.datePicker);
             this.Controls.Add(this.btnSearch);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DataViewer";
             this.Text = "DataViewer";
             this.Load += new System.EventHandler(this.DataViewer_Load);

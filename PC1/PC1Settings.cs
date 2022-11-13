@@ -40,5 +40,6 @@ namespace PC1
             Properties.Settings.Default.storeName = textBox2.Text;
             Properties.Settings.Default.Save();
         }
+
     }
 }

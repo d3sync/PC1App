@@ -8,27 +8,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PC1.Data;
+using SQLitePCL;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace PC1
 {
     public partial class DataViewer : Form
     {
-        private DatabaseClass db = new();
+        private static DbContextDb _context;
         //private static DatabaseClass dbV;
-        public DataViewer()
+        public DataViewer(DbContextDb context)
         {
+            _context = context;
             InitializeComponent();
             btnRefresh.PerformClick();
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            db.connect();
             listView1.Items.Clear();
             try
             {
                 Console.WriteLine($"Attempting to get data for {datePicker.Value.ToString("dd/MM/yy")}");
-                var rr = db.GetDataByDate2(datePicker.Value.ToString("dd/MM/yy"));
+                //var rr = db.GetDataByDate2(datePicker.Value.ToString("dd/MM/yy"));
+                var rr = _context.DeliveredModel.Where(m => m.regDate == datePicker.Value.ToString("dd/MM/yy")).ToList();
                 foreach (var item in rr)
                 {
                     listView1.Items.Add(
@@ -43,13 +47,13 @@ namespace PC1
                 Console.WriteLine($"{ex.Message} --- {ex.StackTrace} --- {ex.Data} --- {ex.Source}");
                 //something went wrong
             }
-            db.closeUp();
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            var rr = db.GetDates("Delivered");
-            mCalLoad.BoldedDates = rr.ToArray();
+            var dd = _context.DeliveredModel.Select(m => m.regDate).Distinct().ToList();
+            List<DateTime> dates = dd.Select(date => DateTime.Parse(date)).ToList();
+            mCalLoad.BoldedDates = dates.ToArray();
         }
 
         private void mCalLoad_DateSelected(object sender, DateRangeEventArgs e)

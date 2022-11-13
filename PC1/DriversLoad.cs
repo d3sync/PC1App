@@ -7,19 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.ComponentModel.Design.ObjectSelectorEditor;
+using PC1.Data;
+using PC1.Models;
 
 namespace PC1
 {
     public partial class DriversLoad : Form
     {
-        private DatabaseClass db;
+        private readonly DbContextDb _context;
         bool EditOn = false;
         int EditID;
-        public DriversLoad(DatabaseClass Dbi)
+        public DriversLoad(DbContextDb context)
         {
             InitializeComponent();
-            db = Dbi;
+            _context = context;
         }
 
         // Method that moves to the next control in the Form by pressing Enter or Return
@@ -42,8 +43,9 @@ namespace PC1
             listView1.Items.Clear();
             try
             {
-                var rr = db.GetLoadedDataByDate(datePicker.Value.ToString("dd/MM/yyyy"));
-                foreach (var item in rr)
+                var dd = _context.AssignedtoModel.Where(m => m.regDate == datePicker.Value.ToString("dd/MM/yy")).ToList();
+                //var rr = db.GetLoadedDataByDate();
+                foreach (var item in dd)
                 {//ParcelBarcode,InvBarcode,VoucherBarcode,Name,Address,Price,Driver,regDate
                         listView1.Items.Add(
                             new ListViewItem(
@@ -53,8 +55,7 @@ namespace PC1
             }
             catch (Exception ex)
             {
-                Console.WriteLine(string.Format("{0} --- {1} --- {2} --- {3}", ex.Message, ex.StackTrace, ex.Data,
-                    ex.Source));
+                Console.WriteLine("{0} --- {1} --- {2} --- {3}", ex.Message, ex.StackTrace, ex.Data, ex.Source);
                 //something went wrong
             }
         }
@@ -63,8 +64,21 @@ namespace PC1
         { //ParcelBarcode,InvBarcode,VoucherBarcode,Name,Address,Price,Driver,regDate
             if (!EditOn)
             {
-                var line = $"'{txtParcelBC.Text}','{txtGeneralNumBC.Text}','{txtVoucherBC.Text}','{txtName.Text}','{txtAddress.Text}','{txtPrice.Text}','{txtDriver.Text}','{DateTime.Now.ToString("dd/MM/yyyy")}'";
-                db.AddAssignedTo(line);
+                //var line = $"'{txtParcelBC.Text}','{txtGeneralNumBC.Text}','{txtVoucherBC.Text}','{txtName.Text}','{txtAddress.Text}','{txtPrice.Text}','{txtDriver.Text}','{DateTime.Now.ToString("dd/MM/yy")}'";
+                //db.AddAssignedTo(line);
+                _context.AssignedtoModel.Add(
+                    new AssignedtoModel()
+                    {
+                        ParcelBarcode = txtParcelBC.Text,
+                        InvBarcode = txtGeneralNumBC.Text,
+                        VoucherBarcode = txtVoucherBC.Text,
+                        Name = txtName.Text,
+                        Price = txtPrice.Text,
+                        Address = txtAddress.Text,
+                        Driver = txtDriver.Text,
+                        regDate = DateTime.Now.ToString("dd/MM/yy")
+                    });
+                _context.SaveChanges();
                 //MessageBox.Show(line);
                 listView1.Items.Add(
                 new ListViewItem( //{txtParcelBC.Text},{txtGeneralNumBC.Text},{txtVoucherBC.Text},{txtName.Text},{txtAddress.Text},{txtPrice.Text}
@@ -84,11 +98,23 @@ namespace PC1
                         $"Address='{txtAddress.Text}'," +
                         $"Price='{txtPrice.Text}'," +
                         $"Driver='{txtDriver.Text}'";
-                    db.UpdateIntoID("Parcels", line, EditID);
+                    //db.UpdateIntoID("Parcels", line, EditID);
+                    var ad = new AssignedtoModel()
+                    {
+                        ParcelBarcode=txtParcelBC.Text,
+                        InvBarcode=txtGeneralNumBC.Text,
+                        VoucherBarcode=txtVoucherBC.Text,
+                        Name=txtName.Text,
+                        Address=txtAddress.Text,
+                        Price=txtPrice.Text,
+                        Driver=txtDriver.Text
+                    };
+                    _context.Update(ad);
+                    _context.SaveChanges();
+
                 }
                 EditOn = false;
                 EditID = -1;
-                btnSubmit.Text = "Καταχώρηση";
                 btnSearch.PerformClick();                
             }
             txtAddress.Text = txtGeneralNumBC.Text = txtGeneralNumBC.Text = txtName.Text = txtParcelBC.Text = txtVoucherBC.Text = txtPrice.Text = "";
@@ -100,7 +126,9 @@ namespace PC1
             {   
                 if (listView1.SelectedItems[0].SubItems[0].Text != "N/A")
                 {
-                    var res = db.GetLoadedByID(Convert.ToInt32(listView1.SelectedItems[0].SubItems[0].Text));
+                    //var res = db.GetLoadedByID(Convert.ToInt32(listView1.SelectedItems[0].SubItems[0].Text));
+                    var res = _context.AssignedtoModel.FirstOrDefault(m =>
+                        m.id == Convert.ToInt32(listView1.SelectedItems[0].SubItems[0].Text));
                     EditID = res.id;
                     EditOn = true;
                     txtParcelBC.Text = res.ParcelBarcode;
@@ -110,7 +138,6 @@ namespace PC1
                     txtAddress.Text = res.Address;
                     txtPrice.Text = res.Price;
                     txtDriver.Text = res.Driver;
-                    btnSubmit.Text = $"Ενημέρωση ID={EditID}";
                 }
             }
         }
@@ -126,8 +153,9 @@ namespace PC1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var rr = db.GetDates("parcels");
-            mCalLoad.BoldedDates = rr.ToArray();
+            var rr = _context.AssignedtoModel.Select(m => m.regDate).Distinct().ToList();
+            List<DateTime> dates = rr.Select(date => DateTime.Parse(date)).ToList();
+            mCalLoad.BoldedDates = dates.ToArray();
         }
 
         private void mCalLoad_DateSelected(object sender, DateRangeEventArgs e)
@@ -139,6 +167,21 @@ namespace PC1
         private void DriversLoad_Load(object sender, EventArgs e)
         {
             button1.PerformClick();
+        }
+
+        private void tsmiDelete_Click(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems[0] != null)
+            {
+                var res = _context.AssignedtoModel.FirstOrDefault(m => m.id == Int32.Parse(listView1.SelectedItems[0].SubItems[0].Text));
+                DialogResult dialogResult = MessageBox.Show($"Θέλετε σίγουρα να διαγράψετε την καταχώρηση {res.id} / {res.Name}?", "Επιβεβαιώστε την διαγραφή", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    _context.AssignedtoModel.Remove(res);
+                    _context.SaveChanges();
+                }
+                
+            }
         }
     }
 }

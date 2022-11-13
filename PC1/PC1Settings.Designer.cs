@@ -36,6 +36,7 @@ namespace PC1
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnSQLiteUpgrade = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -100,11 +101,13 @@ namespace PC1
             this.label1.TabIndex = 0;
             this.label1.Text = "Φάκελος Ημερήσιων";
             // 
+            // 
             // PC1Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnSQLiteUpgrade);
             this.Controls.Add(this.groupBox1);
             this.Name = "PC1Settings";
             this.Text = "PC1Settings";
@@ -123,5 +126,6 @@ namespace PC1
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnSQLiteUpgrade;
     }
 }

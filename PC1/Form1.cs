@@ -1,12 +1,15 @@
-﻿using OfficeOpenXml;
+﻿using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml;
 using OfficeOpenXml.Style;
+using PC1.Data;
+using PC1.Models;
 using System;
+using System.Data.SQLite;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Runtime.Intrinsics.X86;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -15,12 +18,13 @@ namespace PC1
 {
     public partial class Form1 : Form
     {
+        private readonly DbContextDb _context;
         bool editOn = false;
         string fileStr;
-        private DatabaseClass db = new();
 
-        public Form1()
+        public Form1(DbContextDb context)
         {
+            _context = context;
             InitializeComponent();
             if ((Properties.Settings.Default.dailyFolder == "" || Properties.Settings.Default.dailyFolder == null))
             {
@@ -31,7 +35,7 @@ namespace PC1
             string dbFilePath = Properties.Settings.Default.dailyFolder;
             if (!File.Exists(@$"{dbFilePath}\PC1db.sqlite"))
             {
-                db.initializeDB(@$"{dbFilePath}\PC1db.sqlite");
+                SQLiteConnection.CreateFile(@$"{dbFilePath}\PC1db.sqlite");
             }
             //db.AddDParcel("'23231323', '4654654654', '21/08/22', 'Alex', '23.20', 'ΑΛΠ-ΔΑ', '21/08/22'");
             eisMetaforan.Text = NextDinero.ToString();
@@ -40,8 +44,29 @@ namespace PC1
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //db.initializeDB(@$"{Properties.Settings.Default.dailyFolder}\PC1db.sqlite");
-            db.connect();
+            if (Properties.Settings.Default.UpgradeV <= 1000)
+            {
+                var pathSql = @$"{Properties.Settings.Default.dailyFolder}\PC1db.sqlite";
+                if (File.Exists(pathSql))
+                {
+                    try
+                    {
+                        File.Copy(pathSql,
+                            pathSql.Replace("PC1db.sqlite", $"backedup-{DateTime.Now.ToString("ddMMyy")}PC1db.sqlite"));
+                    }
+                    catch { }
+                }
+
+                _context.Database.ExecuteSqlRaw(
+                    "CREATE TABLE IF NOT EXISTS Delivered (id INTEGER PRIMARY KEY AUTOINCREMENT,parcelno TEXT NOT NULL, general_numeration TEXT NOT NULL, procDate TEXT NOT NULL, name TEXT NOT NULL, price TEXT NOT NULL, dc_type TEXT NOT NULL, regDate TEXT NOT NULL)");
+                _context.Database.ExecuteSqlRaw(
+                    "CREATE TABLE IF NOT EXISTS ReceivedParcels (id TEXT PRIMARY KEY,ParcelBarcode TEXT,InvBarcode TEXT,VoucherBarcode TEXT,Name TEXT,Address TEXT,Price TEXT,Phone TEXT,Phone2 TEXT,COMMENTS TEXT,ArrivalDate TEXT, IsCompleted INTEGER)");
+                _context.Database.ExecuteSqlRaw(
+                    "CREATE TABLE IF NOT EXISTS Parcels (id INTEGER PRIMARY KEY AUTOINCREMENT, ParcelBarcode TEXT, InvBarcode TEXT, VoucherBarcode TEXT, Name TEXT, Address TEXT, Price TEXT, Driver TEXT, regDate TEXT);");
+                Properties.Settings.Default.UpgradeV = 1001;
+                Properties.Settings.Default.Save();
+                MessageBox.Show($"Έγινε αναβάθμιση της βάσης δεδομένων. Δημιουργήθηκε ένα αρχείο backup της προηγούμενης βάσης {pathSql.Replace("PC1db.sqlite", $"backedup-{DateTime.Now.ToString("ddMMyy")}PC1db.sqlite")}");
+            }
         }
 
         private void submitBtn_Click(object sender, EventArgs e)
@@ -83,22 +108,49 @@ namespace PC1
                         deliveredDate.Value.ToString("dd/MM/yy"),
                         })
                     );
+                    _context.DeliveredModel.Add(new DeliveredModel()
+                    {
+                        parcelno = txtParcelNo.Text,
+                        general_numeration = txtGeneralNumeration.Text,
+                        procDate = procDate.Value.ToString("dd/MM/yy"),
+                        name = txtName.Text,
+                        price = txtPrice.Text,
+                        dc_type = cmbType.Text,
+                        regDate = deliveredDate.Value.ToString("dd/MM/yy")
+                    });
+                    _context.SaveChanges();
                 }
                 else
                 {
-                    listView1.SelectedItems[0].SubItems[0].Text = txtParcelNo.Text;
-                    listView1.SelectedItems[0].SubItems[1].Text = txtGeneralNumeration.Text;
-                    listView1.SelectedItems[0].SubItems[2].Text = procDate.Value.ToString("dd/MM/yy");
-                    listView1.SelectedItems[0].SubItems[3].Text = txtName.Text;
-                    listView1.SelectedItems[0].SubItems[4].Text = txtPrice.Text.Replace(",", ".");
-                    listView1.SelectedItems[0].SubItems[5].Text = cmbType.Text;
-                    listView1.SelectedItems[0].SubItems[6].Text = deliveredDate.Value.ToString("dd/MM/yy");
-                    editOn = false;
-                    listView1.SelectedIndices.Clear();
+                    var rr = _context.DeliveredModel.FirstOrDefault(x =>
+                        x.parcelno == listView1.SelectedItems[0].SubItems[0].Text ||
+                        x.general_numeration == txtGeneralNumeration.Text);
+                    if (rr != null)
+                    {
+                        listView1.SelectedItems[0].SubItems[0].Text = txtParcelNo.Text;
+                        listView1.SelectedItems[0].SubItems[1].Text = txtGeneralNumeration.Text;
+                        listView1.SelectedItems[0].SubItems[2].Text = procDate.Value.ToString("dd/MM/yy");
+                        listView1.SelectedItems[0].SubItems[3].Text = txtName.Text;
+                        listView1.SelectedItems[0].SubItems[4].Text = txtPrice.Text.Replace(",", ".");
+                        listView1.SelectedItems[0].SubItems[5].Text = cmbType.Text;
+                        listView1.SelectedItems[0].SubItems[6].Text = deliveredDate.Value.ToString("dd/MM/yy");
+                        rr.parcelno = txtParcelNo.Text;
+                        rr.general_numeration = txtGeneralNumeration.Text;
+                        rr.procDate = procDate.Value.ToString("dd/MM/yy");
+                        rr.name = txtName.Text;
+                        rr.price = txtPrice.Text;
+                        rr.dc_type = cmbType.Text;
+                        rr.regDate = deliveredDate.Value.ToString("dd/MM/yy");
+                        _context.DeliveredModel.Update(rr);
+                        _context.SaveChanges();
+                        editOn = false;
+                        listView1.SelectedIndices.Clear();
+                    }
                 }
                 txtParcelNo.Text = txtGeneralNumeration.Text = txtName.Text = txtPrice.Text = "";
                 procDate.ResetText();
                 txtParcelNo.Focus();
+                txtParcelNo.BackColor = Color.White;
             }
             else { MessageBox.Show("Παρακαλώ συμπληρώστε όλα τα πεδία"); }
         }
@@ -107,6 +159,8 @@ namespace PC1
         {
             txtParcelNo.Text = txtGeneralNumeration.Text = txtName.Text = txtPrice.Text = "";
             procDate.ResetText();
+            editOn = false;
+            txtParcelNo.BackColor = Color.White;
         }
 
         private void toolStripMenuItem4_Click(object sender, EventArgs e)
@@ -114,6 +168,10 @@ namespace PC1
             if (listView1.SelectedItems != null)
             {
                 txtParcelNo.Text = listView1.SelectedItems[0].SubItems[0].Text;
+                if (txtParcelNo.Text == "Add Manually")
+                {
+                    txtParcelNo.BackColor = Color.Brown;
+                }
                 txtGeneralNumeration.Text = listView1.SelectedItems[0].SubItems[1].Text;
                 procDate.Value = DateTime.Parse(listView1.SelectedItems[0].SubItems[2].Text);
                 txtName.Text = listView1.SelectedItems[0].SubItems[3].Text;
@@ -201,7 +259,6 @@ namespace PC1
                 ws.Cells["A1:G4"].AutoFitColumns();
                 var i = 5; // Αρχικό κελή
                 var column = Convert.ToChar('A');
-                db.connect();
                 double sum = 0;
                 foreach (ListViewItem vitem in listView1.Items)
                 {
@@ -235,16 +292,16 @@ namespace PC1
                     }
                     i++;
                     line = line.TrimEnd(',');
-                    try
-                    {
-                        db.AddDParcel(line);
-                    }
-                    catch
-                    {
-                        //todo
-                        MessageBox.Show("Something went bad while trying to to insert into the db");
-                    }
-                    //richTextBox1.Text += line + "\r\n";
+                    //try
+                    //{
+                    //    db.AddDParcel(line);
+                    //}
+                    //catch
+                    //{
+                    //    //todo
+                    //    MessageBox.Show("Something went bad while trying to to insert into the db");
+                    //}
+                    ////richTextBox1.Text += line + "\r\n";
                 }
 
                 this.NextDinero = sum;
@@ -319,7 +376,6 @@ namespace PC1
                 {
                     MessageBox.Show(ex.Message, "Warning Issue!");
                 }
-                db.closeUp();
             }
             this.UseWaitCursor = false;
 
@@ -416,15 +472,18 @@ namespace PC1
 
         private void toolStripMenuItem11_Click(object sender, EventArgs e)
         {
-            DataViewer dvForm = new DataViewer();
+            DataViewer dvForm = new DataViewer(_context);
             dvForm.Show();
 
         }
 
         private void assignDriverToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DriversLoad drvForm = new(db);
-            drvForm.Show();
+            if (_context != null)
+            {
+                DriversLoad drvForm = new(_context);
+                drvForm.Show();
+            }
         }
 
         private void eisMetaforan_TextChanged(object sender, EventArgs e)
@@ -452,5 +511,28 @@ namespace PC1
             currentContainer.Text = currentContainer.Text.ToUpper();
             currentContainer.SelectionStart = caretPosition++;
         }
+
+        public void AddToLV(ReceivedParcels rp)
+        {
+            listView1.Items.Add(
+                new ListViewItem(
+                    new string[] {
+                        "Add Manually",
+                        rp.InvBarcode,
+                        DateTime.ParseExact(rp.ArrivalDate,"dd/MM/yy", CultureInfo.InvariantCulture).AddDays(-1).ToString(),
+                        rp.Name,
+                        rp.Price,
+                        "ΑΛΠ-ΔΑ",
+                        DateTime.Now.ToString("dd/MM/yy")
+                    })
+            );
+        }
+
+        private void παραλαβήΔεμάτωνToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ReceiveParcels rpForm = new(_context, this);
+            rpForm.Show();
+        }
+
     }
 }
