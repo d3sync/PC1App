@@ -26,11 +26,6 @@ public partial class Form1 : Form
     {
         _context = context;
         InitializeComponent();
-        if (Settings.Default.dailyFolder == "" || Settings.Default.dailyFolder == null)
-        {
-            Settings.Default.dailyFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            Settings.Default.Save();
-        }
 
         ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
         var dbFilePath = Settings.Default.dailyFolder;
@@ -174,6 +169,7 @@ public partial class Form1 : Form
             procDate.ResetText();
             txtParcelNo.Focus();
             txtParcelNo.BackColor = Color.White;
+            cmbType.BackColor = Color.White;
         }
         else
         {
@@ -187,14 +183,21 @@ public partial class Form1 : Form
         procDate.ResetText();
         editOn = false;
         txtParcelNo.BackColor = Color.White;
+        cmbType.BackColor = Color.White;
     }
-
+    //EDIT FROM LISTVIEW
     private void toolStripMenuItem4_Click(object sender, EventArgs e)
     {
         if (listView1.SelectedItems != null)
         {
             txtParcelNo.Text = listView1.SelectedItems[0].SubItems[0].Text;
-            if (txtParcelNo.Text == "Add Manually") txtParcelNo.BackColor = Color.Brown;
+            if (txtParcelNo.Text == "Add Manually")
+            {
+                txtParcelNo.BackColor = Color.Brown; 
+                cmbType.BackColor = Color.Brown; 
+                txtParcelNo.Clear();
+                listView1.SelectedItems[0].BackColor = Color.White;
+            }
             txtGeneralNumeration.Text = listView1.SelectedItems[0].SubItems[1].Text;
             procDate.Value = DateTime.Parse(listView1.SelectedItems[0].SubItems[2].Text);
             txtName.Text = listView1.SelectedItems[0].SubItems[3].Text;
@@ -204,7 +207,7 @@ public partial class Form1 : Form
             editOn = true;
         }
     }
-
+    //DELETE FROM LISTVIEW
     private void toolStripMenuItem5_Click(object sender, EventArgs e)
     {
         if (listView1.SelectedItems != null) listView1.SelectedItems[0].Remove();
@@ -498,8 +501,8 @@ public partial class Form1 : Form
 
     public void AddToLV(ReceivedParcels rp)
     {
-        listView1.Items.Add(
-            new ListViewItem(
+        
+            var lvi = new ListViewItem(
                 new[]
                 {
                     "Add Manually",
@@ -510,8 +513,9 @@ public partial class Form1 : Form
                     rp.Price,
                     "ΑΛΠ-ΔΑ",
                     DateTime.Now.ToString("dd/MM/yy")
-                })
-        );
+                });
+            lvi.BackColor = Color.Lavender;
+            listView1.Items.Add(lvi);
     }
 
     private void παραλαβήΔεμάτωνToolStripMenuItem_Click(object sender, EventArgs e)

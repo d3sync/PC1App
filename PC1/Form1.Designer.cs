@@ -159,11 +159,13 @@ namespace PC1
             // cmbType
             // 
             this.cmbType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.cmbType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.HistoryList;
+            this.cmbType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmbType.FormattingEnabled = true;
             this.cmbType.Items.AddRange(new object[] {
             "ΑΛΠ-ΔΑ",
             "ΤΠ-ΔΑ",
+            "ΑΕ",
+            "ΠΤ",
             "ΔΑ",
             "ΑΛΠ",
             "ΑΠΥ",

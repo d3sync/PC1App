@@ -36,25 +36,18 @@ namespace PC1
             this.mCalLoad = new System.Windows.Forms.MonthCalendar();
             this.btnSubmit = new System.Windows.Forms.Button();
             this.txtDriver = new System.Windows.Forms.TextBox();
-            this.assignedtoModelBindingSource6 = new System.Windows.Forms.BindingSource(this.components);
             this.label7 = new System.Windows.Forms.Label();
             this.txtPrice = new System.Windows.Forms.TextBox();
-            this.assignedtoModelBindingSource5 = new System.Windows.Forms.BindingSource(this.components);
             this.label6 = new System.Windows.Forms.Label();
             this.txtAddress = new System.Windows.Forms.TextBox();
-            this.assignedtoModelBindingSource4 = new System.Windows.Forms.BindingSource(this.components);
             this.label5 = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
-            this.assignedtoModelBindingSource3 = new System.Windows.Forms.BindingSource(this.components);
             this.label4 = new System.Windows.Forms.Label();
             this.txtVoucherBC = new System.Windows.Forms.TextBox();
-            this.assignedtoModelBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.label3 = new System.Windows.Forms.Label();
             this.txtGeneralNumBC = new System.Windows.Forms.TextBox();
-            this.assignedtoModelBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.label2 = new System.Windows.Forms.Label();
             this.txtParcelBC = new System.Windows.Forms.TextBox();
-            this.assignedtoModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.datePicker = new System.Windows.Forms.DateTimePicker();
             this.btnSearch = new System.Windows.Forms.Button();
@@ -70,13 +63,6 @@ namespace PC1
             this.tsmiEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.assignedtoModelBindingSource6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.assignedtoModelBindingSource5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.assignedtoModelBindingSource4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.assignedtoModelBindingSource3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.assignedtoModelBindingSource2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.assignedtoModelBindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.assignedtoModelBindingSource)).BeginInit();
             this.cntMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -136,17 +122,12 @@ namespace PC1
             // 
             // txtDriver
             // 
-            this.txtDriver.DataBindings.Add(new System.Windows.Forms.Binding("DataContext", this.assignedtoModelBindingSource6, "Driver", true));
             this.txtDriver.Location = new System.Drawing.Point(114, 180);
             this.txtDriver.Name = "txtDriver";
             this.txtDriver.Size = new System.Drawing.Size(172, 23);
             this.txtDriver.TabIndex = 13;
             this.txtDriver.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             this.txtDriver.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Control_KeyUp);
-            // 
-            // assignedtoModelBindingSource6
-            // 
-            this.assignedtoModelBindingSource6.DataSource = typeof(PC1.Models.AssignedtoModel);
             // 
             // label7
             // 
@@ -159,16 +140,11 @@ namespace PC1
             // 
             // txtPrice
             // 
-            this.txtPrice.DataBindings.Add(new System.Windows.Forms.Binding("DataContext", this.assignedtoModelBindingSource5, "Price", true));
             this.txtPrice.Location = new System.Drawing.Point(114, 151);
             this.txtPrice.Name = "txtPrice";
             this.txtPrice.Size = new System.Drawing.Size(172, 23);
             this.txtPrice.TabIndex = 11;
             this.txtPrice.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Control_KeyUp);
-            // 
-            // assignedtoModelBindingSource5
-            // 
-            this.assignedtoModelBindingSource5.DataSource = typeof(PC1.Models.AssignedtoModel);
             // 
             // label6
             // 
@@ -181,17 +157,12 @@ namespace PC1
             // 
             // txtAddress
             // 
-            this.txtAddress.DataBindings.Add(new System.Windows.Forms.Binding("DataContext", this.assignedtoModelBindingSource4, "Address", true));
             this.txtAddress.Location = new System.Drawing.Point(114, 122);
             this.txtAddress.Name = "txtAddress";
             this.txtAddress.Size = new System.Drawing.Size(172, 23);
             this.txtAddress.TabIndex = 9;
             this.txtAddress.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             this.txtAddress.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Control_KeyUp);
-            // 
-            // assignedtoModelBindingSource4
-            // 
-            this.assignedtoModelBindingSource4.DataSource = typeof(PC1.Models.AssignedtoModel);
             // 
             // label5
             // 
@@ -204,17 +175,12 @@ namespace PC1
             // 
             // txtName
             // 
-            this.txtName.DataBindings.Add(new System.Windows.Forms.Binding("DataContext", this.assignedtoModelBindingSource3, "Name", true));
             this.txtName.Location = new System.Drawing.Point(114, 93);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(172, 23);
             this.txtName.TabIndex = 7;
             this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             this.txtName.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Control_KeyUp);
-            // 
-            // assignedtoModelBindingSource3
-            // 
-            this.assignedtoModelBindingSource3.DataSource = typeof(PC1.Models.AssignedtoModel);
             // 
             // label4
             // 
@@ -227,16 +193,11 @@ namespace PC1
             // 
             // txtVoucherBC
             // 
-            this.txtVoucherBC.DataBindings.Add(new System.Windows.Forms.Binding("DataContext", this.assignedtoModelBindingSource2, "VoucherBarcode", true));
             this.txtVoucherBC.Location = new System.Drawing.Point(114, 64);
             this.txtVoucherBC.Name = "txtVoucherBC";
             this.txtVoucherBC.Size = new System.Drawing.Size(172, 23);
             this.txtVoucherBC.TabIndex = 5;
             this.txtVoucherBC.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Control_KeyUp);
-            // 
-            // assignedtoModelBindingSource2
-            // 
-            this.assignedtoModelBindingSource2.DataSource = typeof(PC1.Models.AssignedtoModel);
             // 
             // label3
             // 
@@ -249,16 +210,11 @@ namespace PC1
             // 
             // txtGeneralNumBC
             // 
-            this.txtGeneralNumBC.DataBindings.Add(new System.Windows.Forms.Binding("DataContext", this.assignedtoModelBindingSource1, "InvBarcode", true));
             this.txtGeneralNumBC.Location = new System.Drawing.Point(114, 35);
             this.txtGeneralNumBC.Name = "txtGeneralNumBC";
             this.txtGeneralNumBC.Size = new System.Drawing.Size(172, 23);
             this.txtGeneralNumBC.TabIndex = 3;
             this.txtGeneralNumBC.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Control_KeyUp);
-            // 
-            // assignedtoModelBindingSource1
-            // 
-            this.assignedtoModelBindingSource1.DataSource = typeof(PC1.Models.AssignedtoModel);
             // 
             // label2
             // 
@@ -271,16 +227,11 @@ namespace PC1
             // 
             // txtParcelBC
             // 
-            this.txtParcelBC.DataBindings.Add(new System.Windows.Forms.Binding("DataContext", this.assignedtoModelBindingSource, "ParcelBarcode", true));
             this.txtParcelBC.Location = new System.Drawing.Point(114, 6);
             this.txtParcelBC.Name = "txtParcelBC";
             this.txtParcelBC.Size = new System.Drawing.Size(172, 23);
             this.txtParcelBC.TabIndex = 1;
             this.txtParcelBC.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Control_KeyUp);
-            // 
-            // assignedtoModelBindingSource
-            // 
-            this.assignedtoModelBindingSource.DataSource = typeof(PC1.Models.AssignedtoModel);
             // 
             // label1
             // 
@@ -408,13 +359,6 @@ namespace PC1
             this.Load += new System.EventHandler(this.DriversLoad_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.assignedtoModelBindingSource6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.assignedtoModelBindingSource5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.assignedtoModelBindingSource4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.assignedtoModelBindingSource3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.assignedtoModelBindingSource2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.assignedtoModelBindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.assignedtoModelBindingSource)).EndInit();
             this.cntMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -452,13 +396,6 @@ namespace PC1
         private System.Windows.Forms.ToolStripMenuItem tsmiDelete;
         private System.Windows.Forms.MonthCalendar mCalLoad;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.BindingSource assignedtoModelBindingSource6;
-        private System.Windows.Forms.BindingSource assignedtoModelBindingSource5;
-        private System.Windows.Forms.BindingSource assignedtoModelBindingSource4;
-        private System.Windows.Forms.BindingSource assignedtoModelBindingSource3;
-        private System.Windows.Forms.BindingSource assignedtoModelBindingSource2;
-        private System.Windows.Forms.BindingSource assignedtoModelBindingSource1;
-        private System.Windows.Forms.BindingSource assignedtoModelBindingSource;
         private System.Windows.Forms.ColumnHeader Driver;
     }
 }

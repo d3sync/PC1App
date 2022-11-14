@@ -194,7 +194,7 @@
             this.txtGeneralNumBC.PlaceholderText = "5601234567";
             this.txtGeneralNumBC.Size = new System.Drawing.Size(172, 23);
             this.txtGeneralNumBC.TabIndex = 17;
-            this.toolTip1.SetToolTip(this.txtGeneralNumBC, "Γενική Αρίθμιση Παραστατικού (barcode)");
+            this.toolTip1.SetToolTip(this.txtGeneralNumBC, "Γενική Αρίθμηση Παραστατικού (barcode)");
             this.txtGeneralNumBC.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnlyDigits_KeyPress);
             this.txtGeneralNumBC.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Control_KeyUp);
             this.txtGeneralNumBC.MouseHover += new System.EventHandler(this.txtParcelBC_MouseHover);
@@ -303,7 +303,7 @@
             this.listView1.TabIndex = 33;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
-            this.listView1.DoubleClick += new System.EventHandler(this.cmlv_Delete_Click);
+            this.listView1.DoubleClick += new System.EventHandler(this.cmlv_Edit_Click);
             // 
             // id
             // 
